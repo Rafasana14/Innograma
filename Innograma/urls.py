@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 from api.api.router import router_api
+from api.views import get_all_conferencias
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(router_api.urls))
+    path("api/", include(router_api.urls)),
+    path("ponencias/",get_all_conferencias,name="ponencias"),
 ]

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de ponencias</title>
+</head>
+<body>
+    <h1> Listado de ponencias </h1>
+    <ul>
+        {% for conferencia in conferencias %}
+            <li> <h3> Tema: {{ conferencia.tema   }} </h3>  </li>
+            <li> <h3> Ponente: {{ conferencia.ponente }} </h3>  </li>
+            <li> <h3> Fecha: {{ conferencia.fecha   }} </h3>  </li>
+            <li> <h3> Espacio: {{ conferencia.espacio   }} </h3>  </li>
+            <li> <h3> Aforo máximo: {{ conferencia.aforo_max   }} </h3>  </li>
+            <li> <h3> Número de asistentes {{ conferencia.n_asistentes   }}</h3> </li>
+            <hr>
+        {% endfor %}
+</body>
+</html>
