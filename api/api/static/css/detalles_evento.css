@@ -30,3 +30,11 @@ table tr:nth-child(even) {
 table tr:nth-child(odd) {
     background-color: #fff;
 }
+
+.form-group{
+    margin: 1% 0;
+}
+
+button{
+    margin-bottom: 3% !important;
+} 
