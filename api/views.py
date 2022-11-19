@@ -18,6 +18,12 @@ class EventosView(ListView):
     paginate_by = 3
     context_object_name = 'eventos'
 
+class PonentesView(ListView):
+    template_name = 'ponentes.html'
+    model = Ponente
+    paginate_by = 3
+    context_object_name = 'ponentes'
+
 
 def Inicio(request):
     return render(request, 'index.html')
