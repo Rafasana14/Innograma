@@ -1,0 +1,50 @@
+
+body {
+    background-color: #7cadd3 !important;
+}
+
+.title {
+    margin: 2% 0;
+    margin-bottom: 4% 0;
+    text-align: left; 
+    font-family: Arial Black; 
+    font-weight: bold; 
+    font-size: 50px; 
+    color: #000000; 
+    text-shadow: 0 2px 0 rgb(250, 180, 57), 0 5px 0 rgb(255, 211, 14), 0 3px 0 #bbb, 0 4px 0 #aaa, 0 5px 0 #acacac;
+    }
+
+
+#title-menu{
+    justify-content: center;
+    text-align: center;
+    font-style: oblique;
+
+}
+
+#logo_img_index{
+    display:block;
+    margin:auto;
+    width:150px;
+    height:150px;
+    border-radius:150px;
+    margin-top: 40px;
+}
+
+#description{
+    margin-left: 150px;
+    margin-right: 150px;
+    font-family: Arial Black; 
+    font-size: 20px; 
+    justify-content: center;
+    text-align: center;
+}
+
+#img_innosoft{
+    display:block;
+    margin:auto;
+    width:550px;
+    height:350px;
+    margin: 30px;
+    border: 10px solid white;
+}

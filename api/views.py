@@ -11,6 +11,12 @@ class ConferenciasView(ListView):
     model = Conferencia
     paginate_by = 3
     context_object_name = 'conferencias'
+    
+class EventosView(ListView):
+    template_name = 'eventos.html'
+    model = Evento
+    paginate_by = 3
+    context_object_name = 'eventos'
 
 class PonentesView(ListView):
     template_name = 'ponentes.html'
