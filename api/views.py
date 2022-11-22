@@ -59,3 +59,9 @@ def editar_evento(request, evento_id):
 
     context = {'form':form}
     return render(request, "formulario_evento.html", context)
+
+@login_required
+def eliminar_evento(request,evento_id):
+    evento = Evento.objects.get(id=evento_id)
+    evento.delete()
+    return redirect("/eventos")
