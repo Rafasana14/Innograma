@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MinLengthValidator
 
 class Conferencia(models.Model):
     ponente = models.CharField(max_length=100)
@@ -27,6 +27,6 @@ class Ponente(models.Model):
     conferencias_impartidas = models.TextField(max_length=500, default=None)
     empresa = models.CharField(max_length=255, default=None, null=True, blank=True)
     correo = models.EmailField(max_length=100, default=None, null=True, blank=True)
-    telefono = models.CharField(max_length=12, default=None, null=True, blank=True) #Modificar para que verifique que son números
+    telefono = models.CharField(validators=[MinLengthValidator(9)], max_length=9, default=None, null=True, blank=True) #Modificar para que verifique que son números
     otras_formas_de_contacto = models.TextField(max_length=500, default=None, null=True, blank=True)
     
