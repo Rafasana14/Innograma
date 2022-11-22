@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from api.api.router import router_api
-from api import views
+from api.views import Inicio, PonentesView, ConferenciasView, EventosView, detalles_evento
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router_api.urls)),
-    path("ponencias/",views.ConferenciasView.as_view(),name="ponencias"),
-    path('eventos/<int:id_evento>',views.detalles_evento),
-    path("",views.Inicio, name="index"),
+    path('eventos/<int:id_evento>', detalles_evento),
+    path("ponencias/",ConferenciasView.as_view(),name="ponencias"),
+    path("ponentes/",PonentesView.as_view(),name="ponentes"),
+    path("eventos/",EventosView.as_view(),name="eventos"),
+    path("",Inicio, name="index"),
 ]

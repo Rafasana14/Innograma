@@ -5,39 +5,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de ponencias</title>
+    <title>Listado de eventos</title>
 
     <!-- Importaciones -->
     <!-- CSS personalizado -->
-    <link type="text/css" href='{% static "css/list.css" %}' rel="stylesheet"/>
+    <link type="text/css" href='{% static "css/list_ponencias.css" %}' rel="stylesheet"/>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
-    {% include 'plantillaBarraNavegacion.html' %}
+    {% include 'plantillaBarraNavegacion.html'%}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <div class="container">
         <div >
-            <h1 class="title" id="subtitle"> Listado de ponencias </h1>
+            <h1 class="title" id="title-ponencias"> Listado de eventos </h1>
         </div>
-        <table description="Tabla de listado de ponencias jornada innosoft" id="ponencias_table" class="table table-striped-success">
+        <table description="Tabla de listado de eventos jornada innosoft" id="ponencias_table" class="table table-striped-success">
             <thead>
-            <th> Tema </th> 
-            <th> Ponente</th> 
+            <th> Título </th> 
             <th> Fecha</th> 
-            <th> Espacio </th> 
+            <th> Lugar </th> 
             <th> Aforo máximo</th> 
-            <th> Número de asistentes</th> 
+            <th> Número de asistentes</th>
+            <th> Premio</th>
+            <th> Coste</th> 
             </thead>
 
-            {% for conferencia in conferencias %}
+            {% for evento in eventos %}
             <tr>
-                <td>{{ conferencia.tema   }}</td>
-                <td>{{ conferencia.ponente   }}</td>
-                <td>{{ conferencia.fecha   }}</td>
-                <td>{{ conferencia.espacio   }}</td>
-                <td>{{ conferencia.aforo_max   }}</td>
-                <td>{{ conferencia.n_asistentes   }}</td>
+                <td>{{ evento.titulo   }}</td>
+                <td>{{ evento.fecha   }}</td>
+                <td>{{ evento.lugar   }}</td>
+                <td>{{ evento.aforo_max   }}</td>
+                <td>{{ evento.n_asistentes   }}</td>
+                <td>{{ evento.premio   }}</td>
+                <td>{{ evento.coste   }}</td>
             </tr>
             {% endfor %}
         </table>
