@@ -45,3 +45,17 @@ def crear_evento(request):
             return redirect('/eventos/')
     context ={'form':form}
     return render(request, "formulario_evento.html", context)
+
+@login_required
+def editar_evento(request, evento_id):
+    evento = Evento.objects.get(id=evento_id)
+    form = EventoForm(instance=evento)
+
+    if request.method == 'POST':
+        form = EventoForm(request.POST, instance=evento)
+        if form.is_valid():
+            form.save()
+            return redirect('/eventos/'+str(evento_id))
+
+    context = {'form':form}
+    return render(request, "formulario_evento.html", context)
