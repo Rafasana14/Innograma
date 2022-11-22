@@ -25,6 +25,5 @@ urlpatterns = [
     path("api/", include(router_api.urls)),
     path("ponencias/",views.ConferenciasView.as_view(),name="ponencias"),
     path('eventos/<int:id_evento>',views.detalles_evento),
-    path('eventos/<int:id_evento>/edit',views.get_edicion_evento),
     path("",views.Inicio, name="index"),
 ]
