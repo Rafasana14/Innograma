@@ -6,7 +6,8 @@ from django.views.generic import ListView
 from .forms import ConferenciaForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import EventoForm
 
 # Create your views here.
 
@@ -69,3 +70,34 @@ def Inicio(request):
 def detalles_evento(request, id_evento):
     evento = get_object_or_404(Evento, pk=id_evento)
     return render(request,'eventos/detalles_evento.html',{'evento':evento})
+
+@login_required
+def crear_evento(request):
+    form = EventoForm()
+    if request.method == 'POST':
+        form = EventoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/eventos/')
+    context ={'form':form}
+    return render(request, "formulario_evento.html", context)
+
+@login_required
+def editar_evento(request, evento_id):
+    evento = Evento.objects.get(id=evento_id)
+    form = EventoForm(instance=evento)
+
+    if request.method == 'POST':
+        form = EventoForm(request.POST, instance=evento)
+        if form.is_valid():
+            form.save()
+            return redirect('/eventos/'+str(evento_id))
+
+    context = {'form':form}
+    return render(request, "formulario_evento.html", context)
+
+@login_required
+def eliminar_evento(request,evento_id):
+    evento = Evento.objects.get(id=evento_id)
+    evento.delete()
+    return redirect("/eventos")
