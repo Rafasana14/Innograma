@@ -121,3 +121,17 @@ def crear_ponente(request):
             return redirect('/ponentes/')
     context ={'form':form}
     return render(request, "formulario_ponente.html", context)
+
+@login_required
+def editar_ponente(request, ponente_id):
+    evento = Ponente.objects.get(id=ponente_id)
+    form = PonenteForm(instance=evento)
+
+    if request.method == 'POST':
+        form = PonenteForm(request.POST, instance=evento)
+        if form.is_valid():
+            form.save()
+            return redirect('/ponentes/'+str(ponente_id))
+
+    context = {'form':form}
+    return render(request, "formulario_ponente.html", context)
