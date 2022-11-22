@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class Conferencia(models.Model):
     ponente = models.CharField(max_length=100)
@@ -14,10 +15,10 @@ class Evento(models.Model):
     descripcion = models.TextField(max_length=500, default=None)
     fecha = models.DateTimeField()
     lugar = models.CharField(max_length=100)
-    aforo_max = models.IntegerField(default=None, null=True, blank=True)
-    n_asistentes = models.IntegerField(default=None, null=True, blank=True)
+    aforo_max = models.PositiveIntegerField(default=None, null=True, blank=True)
+    n_asistentes = models.PositiveIntegerField(default=None, null=True, blank=True)
     premio = models.CharField(max_length=255, null=True, blank=True)
-    coste = models.FloatField(default=None, null=True, blank=True)
+    coste = models.FloatField(default=None, null=True, blank=True, validators=[MinValueValidator(0.0)])
     
 class Ponente(models.Model):
     nombre = models.CharField(max_length=255, default=None)
