@@ -1,5 +1,5 @@
-from django import forms
-from .models import Evento
+from django import forms, ModelForm
+from .models import Evento, Conferencia
 
 class EventoForm(forms.ModelForm):
     class Meta:
@@ -15,3 +15,8 @@ class EventoForm(forms.ModelForm):
             'premio': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Premios del evento'}),
             'coste': forms.NumberInput(attrs={'class':'form-control','step':"0.01", 'placeholder':'Coste del evento (en euros)'})
         }
+
+class ConferenciaForm(ModelForm):
+    class Meta:
+        model = Conferencia
+        fields = '__all__'
