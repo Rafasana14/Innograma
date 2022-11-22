@@ -36,10 +36,23 @@ def create_conferencia(request):
         form = ConferenciaForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/ponencias')
     context ={'form':form}
-    return render(request, "ponencia_form.html", context)
+    return render(request,"ponencia_form.html", context)
         
+@login_required
+def update_conferencia(request, conferencia_id):
+    conferencia = Conferencia.objects.get(id=conferencia_id)
+    form = ConferenciaForm(instance=conferencia)
+
+    if request.method == 'POST':
+        form = ConferenciaForm(request.POST, request.FILES, instance=conferencia)
+        if form.is_valid():
+            form.save()
+            return redirect('/ponencias')
+
+    context = {'form':form}
+    return render(request,"ponencia_form.html", context)
 
 def Inicio(request):
     return render(request, 'index.html')

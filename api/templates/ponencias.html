@@ -28,6 +28,7 @@
             <th> Espacio </th> 
             <th> Aforo máximo</th> 
             <th> Número de asistentes</th> 
+            <th> Acciones</th>
             </thead>
 
             {% for conferencia in conferencias %}
@@ -38,12 +39,14 @@
                 <td>{{ conferencia.espacio   }}</td>
                 <td>{{ conferencia.aforo_max   }}</td>
                 <td>{{ conferencia.n_asistentes   }}</td>
+                <td>
+                    <a href="{% url 'actualizar_conferencia' conferencia.id %}" class="btn btn-secondary">Editar</a>
             </tr>
             {% endfor %}
         </table>
 
         {% if user.is_superuser %}
-              <button onclick="location.href='{% url 'crear_ponencia' %}'"  class="btn btn-secondary">Crear</button>
+              <button onclick="location.href='{% url 'crear_ponencia' %}'"  class="btn btn-dark">Crear</button>
         {% endif %}
         <!-- Pagination -->
 
