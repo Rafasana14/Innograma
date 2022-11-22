@@ -54,6 +54,13 @@ def update_conferencia(request, conferencia_id):
     context = {'form':form}
     return render(request,"ponencia_form.html", context)
 
+@login_required
+def delete_conferencia(request,conferencia_id):
+    conferencia = Conferencia.objects.get(id=conferencia_id)
+    context = {'producto':conferencia}
+    conferencia.delete()
+    return render(request, "ponencia_delete.html",context)
+
 def Inicio(request):
     return render(request, 'index.html')
 
