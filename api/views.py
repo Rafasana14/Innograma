@@ -5,6 +5,8 @@ from .models import Conferencia, Evento, Ponente
 from django.views.generic import ListView
 from .forms import ConferenciaForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
+from django.contrib import messages
 
 # Create your views here.
 
@@ -64,5 +66,6 @@ def delete_conferencia(request,conferencia_id):
 def Inicio(request):
     return render(request, 'index.html')
 
-
-
+def detalles_evento(request, id_evento):
+    evento = get_object_or_404(Evento, pk=id_evento)
+    return render(request,'eventos/detalles_evento.html',{'evento':evento})
