@@ -42,6 +42,9 @@
             {% endfor %}
         </table>
 
+        {% if user.is_superuser %}
+              <button onclick="location.href='{% url 'crear_ponencia' %}'"  class="btn btn-secondary">Crear</button>
+        {% endif %}
         <!-- Pagination -->
 
 
