@@ -1,5 +1,5 @@
 from django import forms
-from .models import Evento, Conferencia
+from .models import Evento, Conferencia, Ponente
 
 class EventoForm(forms.ModelForm):
     class Meta:
@@ -27,4 +27,20 @@ class ConferenciaForm(forms.ModelForm):
             'espacio': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Espacio reservado para la conferencia'}),
             'aforo_max': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Aforo máximo de la conferencia'}),
             'n_asistentes': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Nº de asistentes de la conferencia'})
+        }
+
+
+class PonenteForm(forms.ModelForm):
+    class Meta:
+        model = Ponente
+        fields = ['nombre', 'apellidos', 'especialidades', 'conferencias_impartidas', 'empresa', 'correo', 'telefono', 'otras_formas_de_contacto']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nombre del ponente'}),
+            'apellidos': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Apellidos del ponente'}),
+            'especialidades': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Especialidades del ponete'}),
+            'conferencias_impartidas': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Conferencias que ha impartido'}),
+            'empresa': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Empresa a la que pertenece'}),
+            'correo': forms.EmailInput(attrs={'class':'form-control', 'placeholder':'example@gmail.com'}),
+            'telefono': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Teléfono de contacto'}),
+            'otras_formas_de_contacto': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Otras formas de contacto'})
         }

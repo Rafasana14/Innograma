@@ -3,11 +3,10 @@ from django.forms import ModelForm
 from django.core.paginator import Paginator
 from .models import Conferencia, Evento, Ponente
 from django.views.generic import ListView
-from .forms import ConferenciaForm
+from .forms import ConferenciaForm, EventoForm, PonenteForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import EventoForm
 
 # Create your views here.
 
@@ -110,3 +109,35 @@ def eliminar_evento(request,evento_id):
     evento = Evento.objects.get(id=evento_id)
     evento.delete()
     return redirect("/eventos")
+
+
+@login_required
+def crear_ponente(request):
+    form = PonenteForm()
+    if request.method == 'POST':
+        form = PonenteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/ponentes/')
+    context ={'form':form}
+    return render(request, "formulario_ponente.html", context)
+
+@login_required
+def editar_ponente(request, ponente_id):
+    ponente = Ponente.objects.get(id=ponente_id)
+    form = PonenteForm(instance=ponente)
+
+    if request.method == 'POST':
+        form = PonenteForm(request.POST, instance=ponente)
+        if form.is_valid():
+            form.save()
+            return redirect('/ponentes/'+str(ponente_id))
+
+    context = {'form':form}
+    return render(request, "formulario_ponente.html", context)
+
+@login_required
+def eliminar_ponente(request,ponente_id):
+    ponente = Ponente.objects.get(id=ponente_id)
+    ponente.delete()
+    return redirect("/ponentes")

@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, RegexValidator
 
 class Conferencia(models.Model):
     ponente = models.CharField(max_length=100)
@@ -27,6 +27,7 @@ class Ponente(models.Model):
     conferencias_impartidas = models.TextField(max_length=500, default=None)
     empresa = models.CharField(max_length=255, default=None, null=True, blank=True)
     correo = models.EmailField(max_length=100, default=None, null=True, blank=True)
-    telefono = models.CharField(max_length=12, default=None, null=True, blank=True) #Modificar para que verifique que son números
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Utilice el siguiente formato: '+999999999'. Se permite introducir hasta 15 cifras.")
+    telefono = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     otras_formas_de_contacto = models.TextField(max_length=500, default=None, null=True, blank=True)
     
