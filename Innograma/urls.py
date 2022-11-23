@@ -18,22 +18,23 @@ from django.contrib import admin
 from django.urls import path, include
 
 from api.api.router import router_api
+from api import views
 from api.views import Inicio, PonentesView, ConferenciasView, EventosView, detalles_evento, crear_evento, editar_evento, eliminar_evento, get_conferencia, create_conferencia, update_conferencia, delete_conferencia
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router_api.urls)),
-    path('eventos/<int:id_evento>', detalles_evento, name="detalles_evento"),
-    path("ponencias/",ConferenciasView.as_view(),name="ponencias"),
-    path("ponencias/<int:conferencia_id>",get_conferencia , name="conferencia"),
-    path("ponencias/crear",create_conferencia,name="crear_ponencia"),
-    path("ponencias/<int:conferencia_id>/actualizar",update_conferencia, name="actualizar_conferencia"),
-    path("ponencias/<int:conferencia_id>/eliminar",delete_conferencia, name="eliminar_conferencia"),
-    path("ponentes/",PonentesView.as_view(),name="ponentes"),
-    path("eventos/",EventosView.as_view(),name="eventos"),
-    path("eventos/crear",crear_evento, name="crear_evento"),
-    path("eventos/<int:evento_id>/editar",editar_evento, name="editar_evento"),
-    path("eventos/<int:evento_id>/eliminar",eliminar_evento, name="eliminar_evento"),
-    path("",Inicio, name="index"),
+    path('eventos/<int:id_evento>', views.detalles_evento, name="detalles_evento"),
+    path("ponencias/",views.ConferenciasView.as_view(),name="ponencias"),
+    path("ponencias/crear",views.create_conferencia,name="crear_ponencia"),
+    path("ponencias/<int:conferencia_id>/actualizar",views.update_conferencia, name="actualizar_conferencia"),
+    path("ponencias/<int:conferencia_id>/eliminar",views.delete_conferencia, name="eliminar_conferencia"),
+    path("ponentes/",views.PonentesView.as_view(),name="ponentes"),
+    path("ponentes/<int:id_ponente>",views.detalles_ponente,name="detalles_ponente"),
+    path("eventos/",views.EventosView.as_view(),name="eventos"),
+    path("eventos/crear",views.crear_evento, name="crear_evento"),
+    path("eventos/<int:evento_id>/editar",views.editar_evento, name="editar_evento"),
+    path("eventos/<int:evento_id>/eliminar",views.eliminar_evento, name="eliminar_evento"),
+    path("",views.Inicio, name="index"),
 ]

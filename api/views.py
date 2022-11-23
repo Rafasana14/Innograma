@@ -77,6 +77,10 @@ def detalles_evento(request, id_evento):
     evento = get_object_or_404(Evento, pk=id_evento)
     return render(request,'eventos/detalles_evento.html',{'evento':evento})
 
+def detalles_ponente(request, id_ponente):
+    ponente = get_object_or_404(Ponente, pk=id_ponente)
+    return render(request,'ponentes/detalles_ponente.html',{'ponente':ponente})
+
 @login_required
 def crear_evento(request):
     form = EventoForm()
