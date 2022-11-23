@@ -124,14 +124,20 @@ def crear_ponente(request):
 
 @login_required
 def editar_ponente(request, ponente_id):
-    evento = Ponente.objects.get(id=ponente_id)
-    form = PonenteForm(instance=evento)
+    ponente = Ponente.objects.get(id=ponente_id)
+    form = PonenteForm(instance=ponente)
 
     if request.method == 'POST':
-        form = PonenteForm(request.POST, instance=evento)
+        form = PonenteForm(request.POST, instance=ponente)
         if form.is_valid():
             form.save()
             return redirect('/ponentes/'+str(ponente_id))
 
     context = {'form':form}
     return render(request, "formulario_ponente.html", context)
+
+@login_required
+def eliminar_ponente(request,ponente_id):
+    ponente = Ponente.objects.get(id=ponente_id)
+    ponente.delete()
+    return redirect("/ponentes")

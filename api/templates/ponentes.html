@@ -36,7 +36,7 @@
 
             {% for ponente in ponentes %}
             <tr>
-                <td>{{ ponente.nombre   }}</td>
+                <td><a href="./{{ ponente.id }}">{{ ponente.nombre   }}</a></td>
                 <td>{{ ponente.apellidos   }}</td>
                 <td>{{ ponente.especialidades   }}</td>
                 <td>{{ ponente.conferencias_impartidas   }}</td>
@@ -48,6 +48,9 @@
             {% endfor %}
         </table>
 
+        {% if user.is_superuser %}
+              <button onclick="location.href='{% url 'crear_ponente' %}'"  class="btn btn-dark">Crear</button>
+        {% endif %}
 
         <!-- Pagination -->
 

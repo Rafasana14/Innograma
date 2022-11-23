@@ -33,14 +33,14 @@ class ConferenciaForm(forms.ModelForm):
 class PonenteForm(forms.ModelForm):
     class Meta:
         model = Ponente
-        fields = '__all__'
+        fields = ['nombre', 'apellidos', 'especialidades', 'conferencias_impartidas', 'empresa', 'correo', 'telefono', 'otras_formas_de_contacto']
         widgets = {
             'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nombre del ponente'}),
             'apellidos': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Apellidos del ponente'}),
             'especialidades': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Especialidades del ponete'}),
             'conferencias_impartidas': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Conferencias que ha impartido'}),
             'empresa': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Empresa a la que pertenece'}),
-            'correo': forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Correo electrónico'}),
-            'telefono': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Teléfono de contacto'}),
+            'correo': forms.EmailInput(attrs={'class':'form-control', 'placeholder':'example@gmail.com'}),
+            'telefono': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Teléfono de contacto'}),
             'otras_formas_de_contacto': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Otras formas de contacto'})
         }
