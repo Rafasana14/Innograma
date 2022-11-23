@@ -30,7 +30,6 @@
             <th> Número de asistentes</th>
             <th> Premio</th>
             <th> Coste</th>
-            <th> Acciones</th> 
             </thead>
 
             {% for evento in eventos %}
@@ -42,10 +41,6 @@
                 <td>{{ evento.n_asistentes   }}</td>
                 <td>{{ evento.premio   }}</td>
                 <td>{{ evento.coste   }}</td>
-                <td>
-                    <a href="{% url 'editar_evento' evento.id %}" class="btn btn-dark">Editar</a>
-                    <a href="{% url 'eliminar_evento' evento.id %}" class="btn btn-danger">Eliminar</a>
-                </td>
             </tr>
             {% endfor %}
         </table>
@@ -86,9 +81,6 @@
     </div>
     
     <script type="text/javascript" src="/static/js/tableRowLink.js">></script>
-
-    <!--<script type="text/javascript" src="/static/js/popup.js"></script>-->
- 
 
 </body>
 </html>
