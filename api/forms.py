@@ -20,3 +20,11 @@ class ConferenciaForm(forms.ModelForm):
     class Meta:
         model = Conferencia
         fields = '__all__'
+        widgets = {
+            'ponente': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ponente de la conferencia'}),
+            'tema': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Tema de la conferencia'}),
+            'fecha': forms.DateTimeInput(attrs={'class':'form-control', 'placeholder':'yyyy-MM-dd HH:mm:ss'}),
+            'espacio': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Espacio reservado para la conferencia'}),
+            'aforo_max': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Aforo máximo de la conferencia'}),
+            'n_asistentes': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Nº de asistentes de la conferencia'})
+        }

@@ -42,7 +42,7 @@ def get_conferencia(request, conferencia_id):
 def create_conferencia(request):
     form = ConferenciaForm()
     if request.method == 'POST':
-        form = ConferenciaForm(request.POST, request.FILES)
+        form = ConferenciaForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/ponencias')
@@ -55,7 +55,7 @@ def update_conferencia(request, conferencia_id):
     form = ConferenciaForm(instance=conferencia)
 
     if request.method == 'POST':
-        form = ConferenciaForm(request.POST, request.FILES, instance=conferencia)
+        form = ConferenciaForm(request.POST, instance=conferencia)
         if form.is_valid():
             form.save()
             return redirect('/ponencias')
@@ -66,9 +66,8 @@ def update_conferencia(request, conferencia_id):
 @login_required
 def delete_conferencia(request,conferencia_id):
     conferencia = Conferencia.objects.get(id=conferencia_id)
-    context = {'producto':conferencia}
     conferencia.delete()
-    return render(request, "ponencia_delete.html",context)
+    return redirect("/ponencias")
 
 def Inicio(request):
     return render(request, 'index.html')
