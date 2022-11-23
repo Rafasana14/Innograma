@@ -26,6 +26,12 @@ class PonentesView(ListView):
     paginate_by = 3
     context_object_name = 'ponentes'
 
+def get_conferencia(request, conferencia_id):
+    context = {
+        'conferencia': Conferencia.objects.get(id=conferencia_id),
+    }
+    return render(request, "detalles_ponencia.html", context)
+
 
 def Inicio(request):
     return render(request, 'index.html')
