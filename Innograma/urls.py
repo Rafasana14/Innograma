@@ -19,6 +19,8 @@ from django.urls import path, include
 
 from api.api.router import router_api
 from api import views
+from api.views import Inicio, PonentesView, ConferenciasView, EventosView, detalles_evento, crear_evento, editar_evento, eliminar_evento, get_conferencia, create_conferencia, update_conferencia, delete_conferencia
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),

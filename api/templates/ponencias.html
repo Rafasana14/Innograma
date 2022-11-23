@@ -33,11 +33,11 @@
             <th> Número de asistentes</th> 
             <th> Acciones</th>
             </thead>
-
+        
             {% for conferencia in conferencias %}
             <!-- Modal -->
             <tr>
-                <td>{{ conferencia.tema   }}</td>
+                <td><a href="./{{ conferencia.id }}">{{ conferencia.tema }}</a></td>
                 <td>{{ conferencia.ponente   }}</td>
                 <td>{{ conferencia.fecha   }}</td>
                 <td>{{ conferencia.espacio   }}</td>
