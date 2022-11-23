@@ -12,6 +12,9 @@
     <link type="text/css" href='{% static "css/list.css" %}' rel="stylesheet"/>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    
+
 </head>
 <body>
     {% include 'plantillaBarraNavegacion.html' %}
@@ -28,9 +31,11 @@
             <th> Espacio </th> 
             <th> Aforo máximo</th> 
             <th> Número de asistentes</th> 
+            <th> Acciones</th>
             </thead>
         
             {% for conferencia in conferencias %}
+            <!-- Modal -->
             <tr>
                 <td><a href="./{{ conferencia.id }}">{{ conferencia.tema }}</a></td>
                 <td>{{ conferencia.ponente   }}</td>
@@ -38,10 +43,17 @@
                 <td>{{ conferencia.espacio   }}</td>
                 <td>{{ conferencia.aforo_max   }}</td>
                 <td>{{ conferencia.n_asistentes   }}</td>
+                <td>
+                    <a href="{% url 'actualizar_conferencia' conferencia.id %}" class="btn btn-secondary">Editar</a>
+                    <a href="{% url 'eliminar_conferencia' conferencia.id %}" class="btn btn-danger">Eliminar</a>
+                </td>
             </tr>
             {% endfor %}
         </table>
 
+        {% if user.is_superuser %}
+              <button onclick="location.href='{% url 'crear_ponencia' %}'"  class="btn btn-dark">Crear</button>
+        {% endif %}
         <!-- Pagination -->
 
 
@@ -72,6 +84,6 @@
 
         </div>
     </div>
-    
+    <script type="text/javascript" src="/static/js/popup.js"></script>
 </body>
 </html>

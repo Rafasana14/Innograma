@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.forms import ModelForm
 from django.core.paginator import Paginator
 from .models import Conferencia, Evento, Ponente
 from django.views.generic import ListView
+from .forms import ConferenciaForm
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import EventoForm
 
 # Create your views here.
 
@@ -33,9 +37,73 @@ def get_conferencia(request, conferencia_id):
     return render(request, "detalles_ponencia.html", context)
 
 
+
+@login_required
+def create_conferencia(request):
+    form = ConferenciaForm()
+    if request.method == 'POST':
+        form = ConferenciaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/ponencias')
+    context ={'form':form}
+    return render(request,"ponencia_form.html", context)
+        
+@login_required
+def update_conferencia(request, conferencia_id):
+    conferencia = Conferencia.objects.get(id=conferencia_id)
+    form = ConferenciaForm(instance=conferencia)
+
+    if request.method == 'POST':
+        form = ConferenciaForm(request.POST, request.FILES, instance=conferencia)
+        if form.is_valid():
+            form.save()
+            return redirect('/ponencias')
+
+    context = {'form':form}
+    return render(request,"ponencia_form.html", context)
+
+@login_required
+def delete_conferencia(request,conferencia_id):
+    conferencia = Conferencia.objects.get(id=conferencia_id)
+    context = {'producto':conferencia}
+    conferencia.delete()
+    return render(request, "ponencia_delete.html",context)
+
 def Inicio(request):
     return render(request, 'index.html')
 
 def detalles_evento(request, id_evento):
     evento = get_object_or_404(Evento, pk=id_evento)
     return render(request,'eventos/detalles_evento.html',{'evento':evento})
+
+@login_required
+def crear_evento(request):
+    form = EventoForm()
+    if request.method == 'POST':
+        form = EventoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/eventos/')
+    context ={'form':form}
+    return render(request, "formulario_evento.html", context)
+
+@login_required
+def editar_evento(request, evento_id):
+    evento = Evento.objects.get(id=evento_id)
+    form = EventoForm(instance=evento)
+
+    if request.method == 'POST':
+        form = EventoForm(request.POST, instance=evento)
+        if form.is_valid():
+            form.save()
+            return redirect('/eventos/'+str(evento_id))
+
+    context = {'form':form}
+    return render(request, "formulario_evento.html", context)
+
+@login_required
+def eliminar_evento(request,evento_id):
+    evento = Evento.objects.get(id=evento_id)
+    evento.delete()
+    return redirect("/eventos")
