@@ -31,7 +31,7 @@ class PonentesView(ListView):
 
 def get_conferencia(request, conferencia_id):
     context = {
-        'conferencia': Conferencia.objects.get(id=conferencia_id),
+        'conferencia': get_object_or_404(Conferencia,pk=conferencia_id),
     }
     return render(request, "detalles_ponencia.html", context)
 
