@@ -25,6 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router_api.urls)),
     path("ponencias/",views.ConferenciasView.as_view(),name="ponencias"),
+    path("ponencias/<int:conferencia_id>",views.get_conferencia, name="detalles_ponencia"),
     path("ponencias/crear",views.create_conferencia,name="crear_ponencia"),
     path("ponencias/<int:conferencia_id>/actualizar",views.update_conferencia, name="actualizar_conferencia"),
     path("ponencias/<int:conferencia_id>/eliminar",views.delete_conferencia, name="eliminar_conferencia"),

@@ -13,7 +13,7 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
-    
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 </head>
 <body>
@@ -35,9 +35,9 @@
             </thead>
         
             {% for conferencia in conferencias %}
-            <!-- Modal -->
-            <tr>
-                <td><a href="./{{ conferencia.id }}">{{ conferencia.tema }}</a></td>
+            
+            <tr data-href="{% url 'detalles_ponencia' conferencia.id %}">
+                <td>{{ conferencia.tema }}</td>
                 <td>{{ conferencia.ponente   }}</td>
                 <td>{{ conferencia.fecha   }}</td>
                 <td>{{ conferencia.espacio   }}</td>
@@ -80,6 +80,7 @@
 
         </div>
     </div>
-    <script type="text/javascript" src="/static/js/popup.js"></script>
+
+    <script type="text/javascript" src="/static/js/tableRowLink.js">></script>
 </body>
 </html>
