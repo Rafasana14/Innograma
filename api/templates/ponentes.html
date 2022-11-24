@@ -37,13 +37,13 @@
             {% for ponente in ponentes %}
             <tr>
                 <td><a href="./{{ ponente.id }}">{{ ponente.nombre   }}</a></td>
-                <td>{{ ponente.apellidos   }}</td>
-                <td>{{ ponente.especialidades   }}</td>
-                <td>{{ ponente.conferencias_impartidas   }}</td>
-                <td>{{ ponente.empresa   }}</td>
-                <td>{{ ponente.correo   }}</td>
-                <td>{{ ponente.telefono   }}</td>
-                <td>{{ ponente.otras_formas_de_contacto   }}</td>
+                <td id="ponente">{{ ponente.apellidos   }}</td>
+                <td id="ponente">{{ ponente.especialidades   }}</td>
+                <td id="ponente">{{ ponente.conferencias_impartidas   }}</td>
+                <td id="ponente">{{ ponente.empresa   }}</td>
+                <td id="ponente">{{ ponente.correo   }}</td>
+                <td id="ponente">{{ ponente.telefono   }}</td>
+                <td id="ponente">{{ ponente.otras_formas_de_contacto   }}</td>
             </tr>
             {% endfor %}
         </table>
