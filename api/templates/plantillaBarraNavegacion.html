@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link type="text/css" href='{% static "css/navbar.css" %}' rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
+    </head>
+<body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md" >
+        <div class="container-fluid"  >
+
+            <!-- Marca -->
+            <img  id="logo_img" src="https://www.informatica.us.es/images/icagenda/agenda/inno.jpg" alt="Logotipo Innosoft" />
+            
+            <a id="nav__name" class="navbar-brand" href="#">Innograma</a>
+
+            <!-- Botón para pantallas reducidas-->
+            <button id="btdropdown" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú de navegación desplegable (oculto)-->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item">
+                        <a id="nav__subname" class="nav-link active" aria-current="page" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="nav__subname" class="nav-link" href="{% url 'ponencias' %}">Ponencias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="nav__subname" class="nav-link" href="{% url 'ponentes' %}">Ponentes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="nav__subname" class="nav-link" href="{% url 'eventos' %}">Eventos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="nav__subname" class="nav-link" href="#">Calendario</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
