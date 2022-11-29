@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from django.core.paginator import Paginator
-from .models import Conferencia, Evento, Ponente
+from .models import Conferencia, Evento, Ponente, Ponente_Conferencia
 from django.views.generic import ListView
 from .forms import ConferenciaForm, EventoForm, PonenteForm
 from django.contrib.auth.decorators import login_required
@@ -15,6 +15,7 @@ class ConferenciasView(ListView):
     template_name = 'ponencias.html'
     model = Conferencia
     paginate_by = 3
+    
     context_object_name = 'conferencias'
     
 class EventosView(ListView):
@@ -30,11 +31,16 @@ class PonentesView(ListView):
     context_object_name = 'ponentes'
 
 def get_conferencia(request, conferencia_id):
+    conferencia = get_object_or_404(Conferencia,pk=conferencia_id)
+    ponentesAux = Ponente_Conferencia.objects.filter(conferencia = conferencia)
+    ponentes = []
+    for ponente in ponentesAux:
+        ponentes.append(ponente.ponente)
     context = {
-        'conferencia': get_object_or_404(Conferencia,pk=conferencia_id),
+        'conferencia': conferencia,
+        'ponentes': ponentes,
     }
     return render(request, "detalles_ponencia.html", context)
-
 
 
 @login_required
@@ -77,7 +83,15 @@ def detalles_evento(request, id_evento):
 
 def detalles_ponente(request, id_ponente):
     ponente = get_object_or_404(Ponente, pk=id_ponente)
-    return render(request,'ponentes/detalles_ponente.html',{'ponente':ponente})
+    conferenciasAux = Ponente_Conferencia.objects.filter(ponente = ponente)
+    conferencias = []
+    for conferencia in conferenciasAux:
+        conferencias.append(conferencia.conferencia)
+    context = {
+        'conferencias': conferencias,
+        'ponente': ponente,
+    }
+    return render(request,'ponentes/detalles_ponente.html', context)
 
 @login_required
 def crear_evento(request):

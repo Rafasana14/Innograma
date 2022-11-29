@@ -1,10 +1,11 @@
 from django.contrib import admin
-from api.models import Conferencia, Evento, Ponente
+from api.models import Conferencia, Evento, Ponente, Ponente_Conferencia
 
 
 @admin.register(Conferencia)
 class ConferenciaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'ponente', 'tema', 'fecha', 'espacio', 'aforo_max', 'n_asistentes']
+    list_display = ['id', 'tema', 'fecha', 'espacio', 'aforo_max', 'n_asistentes']
+    #filter_horizontal = ('ponente',)
     
 @admin.register(Evento)
 class EventoAdmin(admin.ModelAdmin):
@@ -12,4 +13,8 @@ class EventoAdmin(admin.ModelAdmin):
     
 @admin.register(Ponente)
 class PonenteAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'apellidos', 'especialidades', 'conferencias_impartidas', 'empresa', 'correo', 'telefono', 'otras_formas_de_contacto']
+    list_display = ['nombre', 'apellidos', 'especialidades', 'empresa', 'correo', 'telefono', 'otras_formas_de_contacto']
+
+@admin.register(Ponente_Conferencia)
+class Ponente_ConferenciaAdmin(admin.ModelAdmin):
+    list_display = ['ponente', 'conferencia']
