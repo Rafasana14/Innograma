@@ -15,7 +15,7 @@ class PonenciaTestCase(TestCase):
         Conferencia.objects.create(tema="Redes",fecha="2022-10-05 12:00",espacio="ETSII",aforo_max="200",n_asistentes="75")
         Conferencia.objects.create(tema="Redes To Update",fecha="2022-10-05 12:00",espacio="ETSII",aforo_max="200",n_asistentes="75")
         
-    def test_ponente_create(self):
+    def test_ponencia_create(self):
         ponencia = Conferencia.objects.get(tema = "Redes")
         self.assertIsNotNone(ponencia)
         self.assertEqual(ponencia.tema,"Redes")
@@ -25,13 +25,13 @@ class PonenciaTestCase(TestCase):
         self.assertEqual(ponencia.n_asistentes,75)
        
        
-    def test_ponente_delete(self):
+    def test_ponencia_delete(self):
         ponencia = Conferencia.objects.get(tema = "Redes")
         ponencia.delete()
         self.assertEqual(1,Conferencia.objects.count())
 
     
-    def test_ponente_update(self):
+    def test_ponencia_update(self):
         ponencia = Conferencia.objects.get(tema = "Redes To Update")
         ponencia.tema="Actualiza Tema"
         ponencia.fecha="2021-07-14 12:00"
