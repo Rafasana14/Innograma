@@ -26,7 +26,6 @@
         <table description="Tabla de listado de ponencias jornada innosoft" id="ponencias_table" class="table table-striped-success">
             <thead>
             <th> Tema </th> 
-            <th> Ponente</th> 
             <th> Fecha</th> 
             <th> Espacio </th> 
             <th> Aforo máximo</th> 
@@ -38,7 +37,6 @@
             
             <tr data-href="{% url 'detalles_ponencia' conferencia.id %}">
                 <td>{{ conferencia.tema }}</td>
-                <td>{{ conferencia.ponente   }}</td>
                 <td>{{ conferencia.fecha   }}</td>
                 <td>{{ conferencia.espacio   }}</td>
                 <td>{{ conferencia.aforo_max   }}</td>
