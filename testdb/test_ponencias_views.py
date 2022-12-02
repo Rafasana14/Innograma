@@ -18,7 +18,7 @@ class PonenciasViewsTests(StaticLiveServerTestCase):
         Conferencia.objects.create(ponente="ponente2",tema="tema2",fecha="2022-12-24 12:00",espacio="espacio2",aforo_max="10",n_asistentes="5")
         
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
 
         super(PonenciasViewsTests, self).setUp()           
