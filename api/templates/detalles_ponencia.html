@@ -53,9 +53,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Ponente</th>
+                        <th scope="row">Ponente/s</th>
                         <td>
-                            {{ conferencia.ponente   }}
+                            {% for ponente in ponentes %}
+                                <a class="link-dark" href="{% url 'detalles_ponente' ponente.id %}"> {{ ponente}}  </a><br>
+                            {% endfor %}
                         </td>
                     </tr>
                     <tr>

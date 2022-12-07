@@ -64,10 +64,6 @@
                         <td id="ponente">{{ponente.especialidades}}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Conferencias Impartidas</th>
-                        <td id="ponente">{{ponente.conferencias_impartidas}}</td>
-                    </tr>
-                    <tr>
                         <th scope="row">Empresa</th>
                         <td id="ponente">{{ ponente.empresa }}</td>
                     </tr>
@@ -84,11 +80,37 @@
                         <td id="ponente">{{ ponente.otras_formas_de_contacto }}</td>
                     </tr>    
                 </table>   
-            
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-dark" onclick="location.href='{% url 'editar_ponente' ponente.id %}'">Editar</button>
                     <button class="btn btn-danger delete-button" id="open-popup-1">Eliminar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+                <h1 class="title" id="title-entidad"> CONFERENCIAS IMPARTIDAS </h1>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <table description="Tabla de listado de ponencias jornada innosoft" id="ponencias_table" class="table table-striped-success">
+                    <thead>
+                    <th> Tema </th> 
+                    <th> Fecha</th> 
+                    <th> Espacio </th> 
+                    </thead>
+                
+                    {% for conferencia in conferencias %}
+                        <tr data-href="{% url 'detalles_ponencia' conferencia.id %}">
+                            <td>{{ conferencia.tema }}</td>
+                            <td>{{ conferencia.fecha   }}</td>
+                            <td>{{ conferencia.espacio   }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>  
             </div>
         </div>
     </div>

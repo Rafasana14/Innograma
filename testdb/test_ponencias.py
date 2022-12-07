@@ -1,10 +1,9 @@
 from django.test import TestCase
-from datetime import date
+from django.core.exceptions import ValidationError
 from datetime import datetime
 from api.models import Conferencia
 
 ''' constantes para atributos en las pruebas de tipo caso negativo '''
-PONETE = "Pedro"
 TEMA = "IA"
 FECHA = "2022-08-19"
 ESPACIO = "Facultad"
@@ -13,83 +12,89 @@ ASISTENTES = "200"
 
 class PonenciaTestCase(TestCase):
     def setUp(self):
-        Conferencia.objects.create(ponente="Daniel Ruiz",tema="Redes",fecha="2022-10-05 12:00",espacio="ETSII",aforo_max="200",n_asistentes="75")
-        Conferencia.objects.create(ponente="Daniel Ruiz To Update",tema="Redes",fecha="2022-10-05 12:00",espacio="ETSII",aforo_max="200",n_asistentes="75")
-        
-    def test_ponente_create(self):
-        ponencia = Conferencia.objects.get(ponente = "Daniel Ruiz")
+        Conferencia.objects.create(tema="Redes",fecha="2022-10-05 12:00",espacio="ETSII",aforo_max="200",n_asistentes="75")
+        Conferencia.objects.create(tema="Redes To Update",fecha="2022-10-05 12:00",espacio="ETSII",aforo_max="200",n_asistentes="75")
+
+    def test_ponencia_create(self):
+        ponencia = Conferencia.objects.get(tema = "Redes")
         self.assertIsNotNone(ponencia)
-        self.assertEqual(ponencia.ponente,"Daniel Ruiz")
         self.assertEqual(ponencia.tema,"Redes")
-        #self.assertEqual(ponencia.fecha, datetime.date(2022,10,5,12,0))
+        self.assertEqual(ponencia.fecha, datetime.fromisoformat('2022-10-05 12:00:00+00:00'))
         self.assertEqual(ponencia.espacio,"ETSII")
         self.assertEqual(ponencia.aforo_max,200)
         self.assertEqual(ponencia.n_asistentes,75)
        
        
-    def test_ponente_delete(self):
-        ponencia = Conferencia.objects.get(ponente = "Daniel Ruiz")
+    def test_ponencia_delete(self):
+        ponencia = Conferencia.objects.get(tema = "Redes")
         ponencia.delete()
         self.assertEqual(1,Conferencia.objects.count())
 
     
-    def test_ponente_update(self):
-        ponencia = Conferencia.objects.get(ponente = "Daniel Ruiz To Update")
-        ponencia.ponente="Daniel Actualizado"
+    def test_ponencia_update(self):
+        ponencia = Conferencia.objects.get(tema = "Redes To Update")
         ponencia.tema="Actualiza Tema"
         ponencia.fecha="2021-07-14 12:00"
         ponencia.espacio="A1.30"
         ponencia.aforo_max= "300"
         ponencia.n_asistentes= "100"
         ponencia.save()
-        ponencia_prueba = Conferencia.objects.get(ponente = "Daniel Actualizado")
+        ponencia_prueba = Conferencia.objects.get(tema = "Actualiza Tema")
         self.assertIsNotNone(ponencia_prueba)
-        self.assertEqual(ponencia_prueba.ponente,"Daniel Actualizado")
         self.assertEqual(ponencia_prueba.tema,"Actualiza Tema")
-        #self.assertEqual(ponencia_prueba.fecha, datetime.date(2021,7,14,12,0))
+        self.assertEqual(ponencia_prueba.fecha, datetime.fromisoformat('2021-07-14 12:00:00+00:00'))
         self.assertEqual(ponencia_prueba.espacio,"A1.30")
         self.assertEqual(ponencia_prueba.aforo_max,300)
         self.assertEqual(ponencia_prueba.n_asistentes,100)
+    
 
 
-    '''
-    def test_ponencia_create_blank_ponente(self):
+    # CASOS NEGATIVOS
+   
+    def test_ponencia_create_null_tema(self):
         with self.assertRaises(Exception):
-            Conferencia.objects.create(ponente=" ",tema="Redes",fecha="2022-10-05 12:00",espacio="ETSII",aforo_max="200",n_asistentes="75")
+            Conferencia.objects.create(tema=None,fecha=FECHA,espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
     
-    def test_ponente_create_blank_apellidos(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba",apellidos=" ",especialidades=ESPECIALIDADES,conferencias_impartidas="python",empresa=EMPRESA,correo=CORREO,telefono=TELEFONO,otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+    def test_ponencia_create_blank_tema(self):
+            conferencia = Conferencia(tema="",fecha=FECHA,espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
+            with self.assertRaises(ValidationError):
+                conferencia.full_clean()
 
-    def test_ponente_create_blank_especialidades(self):
+    def test_ponencia_create_null_fecha(self):
         with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba",apellidos="moreno granado",especialidades=" ",conferencias_impartidas="python",empresa=EMPRESA,correo=CORREO,telefono=TELEFONO,otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+            Conferencia.objects.create(tema=TEMA,fecha=None,espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
+
+    def test_ponencia_create_blank_fecha(self):
+            conferencia = Conferencia(tema=TEMA,fecha="",espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
+            with self.assertRaises(ValidationError):
+                conferencia.full_clean()
+
+    def test_ponencia_create_null_espacio(self):
+        with self.assertRaises(Exception):
+            Conferencia.objects.create(tema=TEMA,fecha=FECHA,espacio=None,aforo_max=AFORO,n_asistentes=ASISTENTES)
     
-    def test_ponente_create_blank_conferencias_impartidas(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba",apellidos="moreno granado",especialidades=ESPECIALIDADES,conferencias_impartidas=" ",empresa=EMPRESA,correo=CORREO,telefono=TELEFONO,otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+    def test_ponencia_create_blank_espacio(self):
+            conferencia = Conferencia(tema=TEMA,fecha=FECHA,espacio="",aforo_max=AFORO,n_asistentes=ASISTENTES)
+            with self.assertRaises(ValidationError):
+                conferencia.full_clean()
     
-    def test_ponente_update_email_duplicated(self):
+    def test_ponencia_create_error_format_fecha(self):
         with self.assertRaises(Exception):
-            Ponente.objects.update(nombre="ivamorgraToUpdate",apellidos="moreno granado",especialidades=ESPECIALIDADES,conferencias_impartidas="python",empresa=EMPRESA,correo="ivamorgra@python.com",telefono=TELEFONO,otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-        
-    def test_ponente_update_telefono_duplicated(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.update(nombre="ivamorgra",apellidos="moreno granado",especialidades=ESPECIALIDADES,conferencias_impartidas="python",empresa=EMPRESA,correo=CORREO,telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+            Conferencia.objects.create(tema=TEMA,fecha="10-02-2021 00:00",espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
     
-    def test_ponente_update_blank_nombre(self):
+    def test_ponencia_update_null_tema(self):
         with self.assertRaises(Exception):
-            Ponente.objects.update(nombre=" ",apellidos="moreno granado",especialidades=ESPECIALIDADES,conferencias_impartidas="python",empresa=EMPRESA,correo=CORREO,telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+            Conferencia.objects.update(tema=None,fecha=FECHA,espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
     
-    def test_ponente_update_blank_apellidos(self):
+    def test_ponencia_update_null_fecha(self):
         with self.assertRaises(Exception):
-            Ponente.objects.update(nombre="ivamorgra",apellidos=" ",especialidades=ESPECIALIDADES,conferencias_impartidas="python",empresa=EMPRESA,correo=CORREO,telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+            Conferencia.objects.update(tema=TEMA,fecha=None,espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
     
-    def test_ponente_update_blank_especialidades(self):
+    def test_ponencia_update_null_espacioi(self):
         with self.assertRaises(Exception):
-            Ponente.objects.update(nombre="ivamorgra",apellidos="moreno granado",especialidades=" ",conferencias_impartidas="python",empresa=EMPRESA,correo=CORREO,telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    
-    def test_ponente_update_blank_conferencias_impartidas(self):
+            Conferencia.objects.update(tema=TEMA,fecha=FECHA,espacio=None,aforo_max=AFORO,n_asistentes=ASISTENTES)
+
+    def test_ponencia_update_error_format_fecha(self):
         with self.assertRaises(Exception):
-            Ponente.objects.update(nombre="ivamorgra",apellidos="moreno granado",especialidades=ESPECIALIDADES,conferencias_impartidas=" ",empresa=EMPRESA,correo=CORREO,telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    '''
+            Conferencia.objects.update(tema=TEMA,fecha="10-02-2021 00:00",espacio=ESPACIO,aforo_max=AFORO,n_asistentes=ASISTENTES)
+  
