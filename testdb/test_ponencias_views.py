@@ -21,7 +21,7 @@ class PonenciasViewsTests(StaticLiveServerTestCase):
         Ponente_Conferencia.objects.create(ponente=ponente1,conferencia=conferencia2)
         
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
 
         super(PonenciasViewsTests, self).setUp()           

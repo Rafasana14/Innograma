@@ -10,8 +10,8 @@ TELEFONO = "123456789"
 
 class PonenteTestCase(TestCase):
     def setUp(self):
-        Ponente.objects.create(nombre="ivamorgra",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo="ivamorgra@python.com",telefono="123456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-        Ponente.objects.create(nombre="ivamorgraToUpdate",apellidos="morup gradate",especialidades="python",conferencias_impartidas="python",empresa="Django",correo="ivamorgratoupdate@python.com",telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+        Ponente.objects.create(nombre="ivamorgra",apellidos="mor gra",especialidades="python",empresa="Django",correo="ivamorgra@python.com",telefono="123456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
+        Ponente.objects.create(nombre="ivamorgraToUpdate",apellidos="morup gradate",especialidades="python",empresa="Django",correo="ivamorgratoupdate@python.com",telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
         
     def test_ponente_create(self):
         ponente = Ponente.objects.get(nombre = "ivamorgra")
@@ -19,7 +19,6 @@ class PonenteTestCase(TestCase):
         self.assertEqual(ponente.nombre,"ivamorgra")
         self.assertEqual(ponente.apellidos,"mor gra")
         self.assertEqual(ponente.especialidades,"python")
-        self.assertEqual(ponente.conferencias_impartidas,"python")
         self.assertEqual(ponente.empresa,"Django")
         self.assertEqual(ponente.correo,"ivamorgra@python.com")
         self.assertEqual(ponente.telefono,"123456789")
@@ -38,7 +37,6 @@ class PonenteTestCase(TestCase):
         ponente.apellidos="Actualiza Prueba"
         ponente.especialidades="Prueba"
         ponente.correo="Prueba@gmail.com"
-        ponente.conferencias_impartidas="Big Data"
         ponente.empresa="Empresa Prueba"
         ponente.telefono="223456789"
         ponente.otras_formas_de_contacto="https://www.google.es/github/ivamorgra"
@@ -50,7 +48,6 @@ class PonenteTestCase(TestCase):
         self.assertEqual(ponente_prueba.especialidades,"Prueba")
         self.assertEqual(ponente_prueba.correo,"Prueba@gmail.com")
         self.assertEqual(ponente_prueba.telefono,"223456789")
-        self.assertEqual(ponente_prueba.conferencias_impartidas,"Big Data")
         self.assertEqual(ponente_prueba.empresa,"Empresa Prueba")
         self.assertEqual(ponente_prueba.otras_formas_de_contacto,"https://www.google.es/github/ivamorgra")
 
@@ -65,37 +62,6 @@ class PonenteTestCase(TestCase):
         with self.assertRaises(Exception):
             Ponente.objects.create(nombre="Prueba email",apellidos=APELLIDOS,especialidades=ESPECIALIDADES,conferencias_impartidas="python",empresa="Django",correo="ivamorgra@python.com",telefono="323456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
     
-    '''
-    def test_ponente_create_error_phone(self):
-        with self.assertRaisesRegex(Exception,"Utilice el siguiente formato: '+999999999'. Se permite introducir hasta 15 cifras."):
-            Ponente.objects.create(nombre="Prueba email",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo=CORREO,telefono="abc456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    
-    
-    def test_ponente_create_error_phone2(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba email",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo=CORREO,telefono="12a456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    
-    def test_ponente_create_error_phone3(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba email",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo=CORREO,telefono="1234567891",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    
-    def test_ponente_create_error_phone4(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba email",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo=CORREO,telefono="12345678a",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    
-    def test_ponente_create_error_phone5(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba email",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo=CORREO,telefono="12345678*",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    
-    def test_ponente_create_error_phone6(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba email",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo=CORREO,telefono="*23456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    
-    def test_ponente_create_error_phone7(self):
-        with self.assertRaises(Exception):
-            Ponente.objects.create(nombre="Prueba email",apellidos="mor gra",especialidades="python",conferencias_impartidas="python",empresa="Django",correo=CORREO,telefono="234/6789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
-    '''
-
     def test_ponente_create_duplicate_phone(self):
         with self.assertRaises(Exception):
             Ponente.objects.create(nombre="Prueba email",apellidos=APELLIDOS,especialidades=ESPECIALIDADES,conferencias_impartidas="python",empresa=EMPRESA,correo="ivamorgra@outlook.es",telefono=TELEFONO,otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
