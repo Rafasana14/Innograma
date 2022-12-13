@@ -1,5 +1,5 @@
 from django import forms
-from .models import Evento, Conferencia, Ponente
+from .models import Evento, Conferencia, Ponente, Ponente_Conferencia
 
 class EventoForm(forms.ModelForm):
     class Meta:
@@ -43,3 +43,8 @@ class PonenteForm(forms.ModelForm):
             'telefono': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Teléfono de contacto'}),
             'otras_formas_de_contacto': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Otras formas de contacto'})
         }
+
+class Ponente_ConferenciaForm(forms.ModelForm):
+    class Meta:
+        model = Ponente_Conferencia
+        fields = ['ponente']
