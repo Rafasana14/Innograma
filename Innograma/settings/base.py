@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,8 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-1l)hu_t8tr$vb9#f#vlux#z*pacg)unw#2f2gs0#2p1=2(70on"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -32,7 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -71,21 +68,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "Innograma.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "Innograma",
-        "USER": "postgres",
-        "PASSWORD": "d@m@nt1v@m1gr@f",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
 
 
 # Password validation

@@ -7,18 +7,21 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-from api.models import Conferencia
+from api.models import Conferencia, Ponente, Ponente_Conferencia
 
 
 class PonenciasViewsTests(StaticLiveServerTestCase):
 
     def setUp(self):
         #Load base test functionality for decide
-        Conferencia.objects.create(ponente="ponente1",tema="tema1",fecha="2022-12-24 12:00",espacio="espacio1",aforo_max="10",n_asistentes="5")
-        Conferencia.objects.create(ponente="ponente2",tema="tema2",fecha="2022-12-24 12:00",espacio="espacio2",aforo_max="10",n_asistentes="5")
+        ponente1=Ponente.objects.create(nombre="ponente1",apellidos="apellidos",especialidades="Ninguna",telefono="666666666")
+        conferencia1=Conferencia.objects.create(tema="tema1",fecha="2022-12-24 12:00",espacio="espacio1",aforo_max="10",n_asistentes="5")
+        conferencia2=Conferencia.objects.create(tema="tema2",fecha="2022-12-24 12:00",espacio="espacio2",aforo_max="10",n_asistentes="5")
+        Ponente_Conferencia.objects.create(ponente=ponente1,conferencia=conferencia1)
+        Ponente_Conferencia.objects.create(ponente=ponente1,conferencia=conferencia2)
         
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
 
         super(PonenciasViewsTests, self).setUp()           
