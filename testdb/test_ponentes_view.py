@@ -16,7 +16,7 @@ class PonentesViews(StaticLiveServerTestCase):
         Ponente.objects.create(nombre="ivamorgraToUpdate",apellidos="morup gradate",especialidades="python",conferencias_impartidas="python",empresa="Django",correo="ivamorgratoupdate@python.com",telefono="223456789",otras_formas_de_contacto="LinkedIn: Iván Moreno Granado")
         
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
         #super().setup()
 
