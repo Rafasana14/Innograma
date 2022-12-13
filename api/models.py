@@ -39,6 +39,8 @@ class Conferencia(models.Model):
 class Ponente_Conferencia(models.Model):
     ponente = models.ForeignKey(Ponente, on_delete=models.CASCADE)
     conferencia = models.ForeignKey(Conferencia, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('ponente', 'conferencia',)
 
     def __str__(self):
         return self.ponente.nombre + " " + self.ponente.apellidos
