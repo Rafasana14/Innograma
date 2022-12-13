@@ -18,7 +18,7 @@ class EventosViewsTests(StaticLiveServerTestCase):
         Evento.objects.create(titulo="Gymkhana",descripcion="Gymkhana con 9 distintos retos a realizar en el mínimo tiempo posible",fecha="2022-11-10 15:00",lugar="Aula A3.10 ETSII",premio="Caja de 5KG de La Estepeña",n_asistentes = "63",coste="0.0")
         
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
 
         super(EventosViewsTests, self).setUp()           
