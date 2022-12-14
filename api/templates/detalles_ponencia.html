@@ -88,6 +88,7 @@
             
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-light" onclick="location.href='{% url 'ponente_conferencia' conferencia.id %}'">Añadir un Ponente</button>
+                    <button class="btn btn-light" onclick="location.href='{% url 'ponente_conferencia_delete' conferencia.id %}'" style="background-color: #f7ef9a">Eliminar un Ponente</button>
                     <button class="btn btn-dark" onclick="location.href='{% url 'actualizar_conferencia' conferencia.id %}'">Editar</button>
                     <button class="btn btn-danger delete-button" id="open-popup-1">Eliminar</button>
                 </div>
