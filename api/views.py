@@ -88,6 +88,25 @@ def ponente_conferencia(request, conferencia_id):
     return render(request,"ponente_ponencia_form.html", context)
 
 @login_required
+def delete_ponente_conferencia(request, conferencia_id):
+    conferencia = get_object_or_404(Conferencia, id=conferencia_id)
+    ponentes =  Ponente_Conferencia.objects.filter(conferencia = conferencia).values_list('ponente')
+    ids = []
+    for it in ponentes:
+        ids.append(it[0])
+    form = Ponente_ConferenciaForm()
+    form.fields['ponente'].queryset = Ponente.objects.all().filter(id__in = ids)
+    if request.method == 'POST':
+        form = Ponente_ConferenciaForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            ponente = cd['ponente']
+            Ponente_Conferencia.objects.filter(conferencia=conferencia, ponente = ponente).delete()
+            return redirect('/ponencias')
+    context ={'form':form, 'conferencia':conferencia}
+    return render(request,"ponente_ponencia_form_delete.html", context)
+
+@login_required
 def delete_conferencia(request,conferencia_id):
     conferencia = Conferencia.objects.get(id=conferencia_id)
     conferencia.delete()
