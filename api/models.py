@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, RegexValidator
+from django.urls import reverse
     
 
 class Evento(models.Model):
@@ -11,6 +12,10 @@ class Evento(models.Model):
     n_asistentes = models.PositiveIntegerField(default=None, null=True, blank=True)
     premio = models.CharField(max_length=255, null=True, blank=True)
     coste = models.FloatField(default=None, null=True, blank=True, validators=[MinValueValidator(0.0)])
+    
+    def get_absolute_url(self):
+        url = reverse('detalles_evento', args=[self.id])
+        return u'<a href="%s">%s</a>' % (url, str(self.titulo)+ " - " + str(self.fecha.time()))
     
 class Ponente(models.Model):
     nombre = models.CharField(max_length=255, default=None)
@@ -34,6 +39,10 @@ class Conferencia(models.Model):
 
     def __str__(self):
         return self.tema
+    
+    def get_absolute_url(self):
+        url = reverse('detalles_ponencia', args=[self.id])
+        return u'<a href="%s">%s</a>' % (url, str(self.tema)+ " - " + str(self.fecha.time()))
 
 
 class Ponente_Conferencia(models.Model):
