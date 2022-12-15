@@ -1,8 +1,8 @@
 ---
 name: Reportar Problema
 about: Crea una incidencia sobre un error encontrado.
-title: "[BUG] Título"
-labels: ''
+title: "[BUG] TASK-XXX: Título"
+labels: bug, new
 assignees: ''
 
 ---

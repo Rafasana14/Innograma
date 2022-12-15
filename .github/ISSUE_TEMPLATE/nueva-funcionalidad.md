@@ -1,8 +1,8 @@
 ---
 name: Nueva funcionalidad
 about: Sugiere una idea para el proyecto
-title: ''
-labels: ''
+title: "[FEAT] TASK-XXX: Título"
+labels: feat, new
 assignees: ''
 
 ---
