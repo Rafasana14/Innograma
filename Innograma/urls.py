@@ -42,4 +42,5 @@ urlpatterns = [
     path("eventos/<int:evento_id>/editar",views.editar_evento, name="editar_evento"),
     path("eventos/<int:evento_id>/eliminar",views.eliminar_evento, name="eliminar_evento"),
     path("",views.Inicio, name="index"),
+    path("calendario",views.calendario, name="calendario")
 ]

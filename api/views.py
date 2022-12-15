@@ -7,6 +7,11 @@ from .forms import ConferenciaForm, EventoForm, Ponente_ConferenciaForm, Ponente
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
+import datetime
+import calendar
+from calendar import HTMLCalendar
+from django.utils.safestring import mark_safe
+from .CalendarioEventos import CalendarioEventos
 
 # Create your views here.
 
@@ -193,3 +198,94 @@ def eliminar_ponente(request,ponente_id):
     ponente = Ponente.objects.get(id=ponente_id)
     ponente.delete()
     return redirect("/ponentes")
+
+def calendario(request):
+    month = request.GET.get('mes', None)
+    year = request.GET.get('año', datetime.date.today().year)
+    message=""
+
+    if month == None:
+        eventos_year = Evento.objects.filter(fecha__year=year)
+        print(eventos_year.count())
+        if(len(eventos_year)==0):
+            eventos_year = Conferencia.objects.filter(fecha__year=year)
+        if(len(eventos_year)==0):
+            message = "No hay eventos o conferencias en ese año. Mostrando enero."
+            month = 1
+        else:
+            month = eventos_year[0].fecha.month
+    if year == None:
+        message = "No hay eventos o conferencias en ese año. Mostrando semana actual."
+        d = datetime.date.today()
+    else:
+        try:
+            if(eventos_year.count()==0):
+                d = datetime.date(year=int(year), month=int(month), day=1)
+            else:    
+                d = datetime.date(year=int(year), month=int(month), day=eventos_year[0].fecha.day)
+        except:
+            d = datetime.date.today()
+
+    '''previous_month = datetime.date(year=d.year, month=d.month, day=1)  # find first day of current month
+    previous_month = previous_month - datetime.timedelta(days=1)  # backs up a single day
+    previous_month = datetime.date(year=previous_month.year, month=previous_month.month,
+                                    day=1)  # find first day of previous month
+
+    last_day = calendar.monthrange(d.year, d.month)
+    next_month = datetime.date(year=d.year, month=d.month, day=last_day[1])  # find last day of current month
+    next_month = next_month + datetime.timedelta(days=1)  # forward a single day
+    next_month = datetime.date(year=next_month.year, month=next_month.month,
+                                day=1)  # find first day of next month'''
+    
+    first_day = d.weekday()
+    first_day = datetime.timedelta(days=first_day)
+    first_day = d - first_day
+    week = []
+    for i in range(7):
+        delta = datetime.timedelta(days=i)
+        dia=first_day+delta
+        week.append((dia.day,dia.weekday()))
+    years=[]
+    fecha_aux=datetime.date.today()
+    for i in range(10):
+        delta = datetime.timedelta(days=365*i)
+        aux=fecha_aux-delta
+        years.append(aux.year)
+        
+    for i in range(1,10):
+        delta = datetime.timedelta(days=365*i)
+        aux=fecha_aux+delta
+        years.append(aux.year)
+    years.sort()
+
+    cal = CalendarioEventos()
+    #html_calendar = cal.formatmonth(d.year, d.month, withyear=True)
+    #html_calendar = cal.formatweek(week)
+    # html_calendar = html_calendar.replace('<td ', '<td  width="150" height="150"')
+    v = []
+    a = v.append
+    a('<table border="0" cellpadding="0" cellspacing="0" class="%s">' % (cal.cssclass_month))
+    a('\n')
+    a(cal.formatmonthname(d.year, d.month, withyear=True))
+    a('\n')
+    a(cal.formatweekheader())
+    a('\n')
+    a(cal.formatweek(week,d.year))
+    a('\n')
+    a('</table>')
+    a('\n')
+    html_calendar = ''.join(v)
+    html_calendar = html_calendar.replace('<td ', '<td  width="180" height="150"')
+    
+    context = {
+        'calendario': mark_safe(html_calendar),
+        'years': years,
+        'current_year': d.year,
+        'message': message,
+    }
+    '''next_month': next_month.month,
+        'next_year': next_month.year,
+        'previous_month': previous_month.month,
+        'previous_year': previous_month.year,'''
+    
+    return render(request, "calendario/calendario.html", context)
