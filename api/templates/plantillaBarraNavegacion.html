@@ -38,7 +38,17 @@
                     <li class="nav-item">
                         <a id="nav__subname" class="nav-link" href="#">Calendario</a>
                     </li>
+                    <li class="nav-item nav-item-right">
+                    {% if request.user.is_authenticated %}
+                            <a id="nav__subname" class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                    {% else %}
+                            <a id="nav__subname" class="nav-link" href="{% url 'login' %}">Acceso Administrador</a>
+                    {% endif %}
+                    </li>
                 </ul>
+            </div>
+            <div>
+                
             </div>
         </div>
     </nav>

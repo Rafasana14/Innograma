@@ -48,3 +48,8 @@ class Ponente_ConferenciaForm(forms.ModelForm):
     class Meta:
         model = Ponente_Conferencia
         fields = ['ponente']
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
