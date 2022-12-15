@@ -24,6 +24,8 @@ from api import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router_api.urls)),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
     path("ponencias/",views.ConferenciasView.as_view(),name="ponencias"),
     path("ponencias/<int:conferencia_id>",views.get_conferencia, name="detalles_ponencia"),
     path("ponencias/crear",views.create_conferencia,name="crear_ponencia"),

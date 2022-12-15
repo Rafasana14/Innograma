@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
+from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import Conferencia, Evento, Ponente, Ponente_Conferencia
 from django.views.generic import ListView
-from .forms import ConferenciaForm, EventoForm, Ponente_ConferenciaForm, PonenteForm
+from .forms import ConferenciaForm, EventoForm, Ponente_ConferenciaForm, PonenteForm, LoginForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 import datetime
-import calendar
-from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
 from .CalendarioEventos import CalendarioEventos
+from django.contrib.auth import logout
+
 
 # Create your views here.
 
@@ -289,3 +291,29 @@ def calendario(request):
         'previous_year': previous_month.year,'''
     
     return render(request, "calendario/calendario.html", context)
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request,username=cd['username'],password=cd['password'])
+            
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return render(request, 'index.html')
+                else:
+                    return HttpResponse('Cuenta suspendida')
+        else:
+            return HttpResponse('Inicio de sesión no válido')
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {'form': form})
+
+
+def user_logout(request):
+    
+    logout(request)
+    return render(request, 'index.html')
