@@ -1,0 +1,39 @@
+
+/* Tabla estilo cebra */
+table tr:nth-child(even) {
+    background-color: #f7ef9a;
+}
+
+table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+body {
+    background-color: #7cadd3 !important;
+}
+
+.title {
+    margin: 4% 0;
+    text-align: left; 
+    font-family: Arial Black; 
+    font-weight: bold; 
+    font-size: 30px; 
+    color: #000000; 
+    text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa, 0 5px 0 #acacac;
+    }
+
+#subtitle{
+    justify-content: center;
+    text-align: center;
+
+}
+
+#actual_page{
+    margin: 20 px;
+}
+
+li{
+    margin: 50 px
+}
+
+
