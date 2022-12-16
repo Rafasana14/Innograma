@@ -1,0 +1,68 @@
+services:
+  db:
+    image: postgres:14.5
+    container_name: innograma_db
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=Innograma
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=d@m@nt1v@m1gr@f
+    networks:
+      - innograma
+
+  web:
+    build: 
+      context: ../
+      dockerfile: ./docker-compose/Dockerfile
+    container_name: innograma_web
+    image: innograma_web:latest
+    command: bash -c "python manage.py migrate && gunicorn -w 5 Innograma.wsgi --timeout=500 -b 0.0.0.0:5000"
+    #command: ls
+    restart: always
+    expose:
+      - "5000"
+    volumes:
+      - static:/app/static
+    environment:
+      - DJANGO_SETTINGS_MODULE=Innograma.settings.prod
+      - POSTGRES_DB=Innograma
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=d@m@nt1v@m1gr@f
+    depends_on:
+      - db
+    networks:
+      - innograma
+
+  nginx:
+    restart: always
+    container_name: innograma_nginx
+    image: innograma_nginx:latest
+    build:
+        context: ../
+        dockerfile: ./docker-compose/Dockerfile-nginx
+    volumes:
+      - static:/app/static
+    ports:
+      - "5000:80"
+    depends_on:
+      - web
+    networks:
+      - innograma
+
+volumes:
+  static:
+    name: innograma_static
+  db:
+    name: innograma_db
+  innograma:
+    name: innograma
+
+networks:
+  innograma:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+       - subnet: 10.5.0.0/16
