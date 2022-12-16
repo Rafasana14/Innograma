@@ -6,4 +6,3 @@ selenium==4.6.0
 djangorestframework==3.14.0
 PySocks==1.7.1
 psycopg2==2.9.5
-uwsgi==2.0.20

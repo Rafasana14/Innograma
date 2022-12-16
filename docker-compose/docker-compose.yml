@@ -4,8 +4,7 @@ services:
     container_name: innograma_db
     restart: always
     volumes:
-      - ./data/db:/var/lib/postgresql/data
-      #- db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=Innograma
       - POSTGRES_USER=postgres
@@ -55,8 +54,8 @@ services:
 volumes:
   static:
     name: innograma_static
-  #db:
-    #name: innograma_db
+  db:
+    name: innograma_db
   innograma:
     name: innograma
 
