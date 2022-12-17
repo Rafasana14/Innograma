@@ -29,7 +29,6 @@ class SesionTests(StaticLiveServerTestCase):
         self.assertTrue(len(self.driver.find_elements(By.LINK_TEXT,"Cerrar Sesión"))==1)
         
     def test_logout(self):
-
         self.driver.get(f'{self.live_server_url}')
         self.driver.find_element(By.LINK_TEXT, "Acceso Administrador").click()
         self.driver.find_element(By.ID, "id_username").send_keys("admin")
