@@ -1,0 +1,15 @@
+---
+- name: Database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: innograma
+
+- name: Database user
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: innograma
+    name: innograma
+    password: innograma
+    priv: ALL

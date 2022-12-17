@@ -1,0 +1,24 @@
+---
+- name: Git clone
+  become: yes
+  become_user: innograma
+  git:
+    repo: 'https://github.com/Rafasana14/Innograma.git'
+    dest: /home/innograma/innograma
+    version: master
+
+- name: Python virtualenv
+  become: yes
+  become_user: innograma
+  pip:
+    name: "gunicorn"
+    virtualenv: /home/innograma/venv
+    virtualenv_python: python3
+
+- name: Requirements
+  become: yes
+  become_user: innograma
+  pip:
+    requirements: /home/innograma/innograma/requirements.txt
+    virtualenv: /home/innograma/venv
+    virtualenv_python: python3
