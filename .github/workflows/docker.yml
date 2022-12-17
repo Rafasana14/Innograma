@@ -3,11 +3,13 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
+  workflow_run:
+    workflows: [Django CI]
+    types: [completed]
 
 jobs:
 
-  build:
-
+  docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,8 +24,5 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     -
-      name: Build and push
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: rafsanesp/innograma:latest
+      name: Push the Docker image
+      run: docker push rafsanesp/innograma
