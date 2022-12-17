@@ -1,10 +1,8 @@
-from django.test import TestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.contrib.auth.models import User
 
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
 from api.models import Ponente
@@ -12,20 +10,21 @@ from api.models import Ponente
 class PonentesViews(StaticLiveServerTestCase):
 
     def setUp(self):
-        ponente1=Ponente.objects.create(nombre="ponente1",apellidos="apellidos",especialidades="Ninguna",empresa="Empresa1",correo="ponente1@gmail.com",telefono="666666666",otras_formas_de_contacto="Ninguna")
-        ponente2=Ponente.objects.create(nombre="ponente2",apellidos="apellidos",especialidades="Ninguna",empresa="Empresa2",correo="ponente2@gmail.com",telefono="666666665",otras_formas_de_contacto="Ninguna")
-        pnente3=Ponente.objects.create(nombre="ponente3",apellidos="apellidos",especialidades="Ninguna",empresa="Empresa3",correo="ponente3@gmail.com",telefono="666666664",otras_formas_de_contacto="LinkedIn: https:/www.linkedin.com/ponente3")
+        Ponente.objects.create(nombre="ponente1",apellidos="apellidos",especialidades="Ninguna",empresa="Empresa1",correo="ponente1@gmail.com",telefono="666666666",otras_formas_de_contacto="Ninguna")
+        Ponente.objects.create(nombre="ponente2",apellidos="apellidos",especialidades="Ninguna",empresa="Empresa2",correo="ponente2@gmail.com",telefono="666666665",otras_formas_de_contacto="Ninguna")
+        Ponente.objects.create(nombre="ponente3",apellidos="apellidos",especialidades="Ninguna",empresa="Empresa3",correo="ponente3@gmail.com",telefono="666666664",otras_formas_de_contacto="LinkedIn: https:/www.linkedin.com/ponente3")
+        User.objects.create_superuser('admin', 'admin@example.com', 'admin')
         
         options = webdriver.ChromeOptions()
         options.headless = True
         self.driver = webdriver.Chrome(options=options)
-        #super().setup()
+        super(PonentesViews, self).setUp()
 
     def tearDown(self):           
         self.driver.quit()
         super(PonentesViews, self).tearDown()
 
-    
+    '''
     def test_ponentes(self):
         driver = self.driver
         driver.get(f'{self.live_server_url}')
@@ -97,4 +96,19 @@ class PonentesViews(StaticLiveServerTestCase):
         self.assert_(telefono.text=="666666664")
 
         otras_formas_de_contacto = atributos[6].find_element(By.TAG_NAME, "td")
-        self.assert_(otras_formas_de_contacto.text=="LinkedIn: https:/www.linkedin.com/ponente3")
+        self.assert_(otras_formas_de_contacto.text=="LinkedIn: https:/www.linkedin.com/ponente3")'''
+        
+    def test_create_ponente(self):
+        old_count= Ponente.objects.all().count()
+        self.driver.get(f'{self.live_server_url}')
+        self.driver.find_element(By.LINK_TEXT, "Acceso Administrador").click()
+        self.driver.find_element(By.ID, "id_username").send_keys("admin")
+        self.driver.find_element(By.ID, "id_password").send_keys("admin",Keys.ENTER)
+        self.driver.find_element(By.LINK_TEXT, "Ponentes").click()
+        self.driver.find_element(By.XPATH, '//button[text()="Crear"]').click()
+        self.driver.find_element(By.ID, "id_nombre").send_keys("Rafael")
+        self.driver.find_element(By.ID, "id_apellidos").send_keys("Sanabria Espárrago")
+        self.driver.find_element(By.ID, "id_especialidades").send_keys("Ciencia")
+        self.driver.find_element(By.XPATH, '//button[@name="Submit"]').submit()
+        count= Ponente.objects.all().count()
+        self.assertTrue(count == (old_count+1))
