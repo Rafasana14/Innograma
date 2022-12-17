@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.contrib.auth.models import User
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -17,13 +18,15 @@ class EventosViewsTests(StaticLiveServerTestCase):
         Evento.objects.create(titulo="Panpizzas gratis",descripcion="Reparto de 200 tickets para panpizzas gratuitos en Ñam Ñam válidos durante la semana de Innosoft Days",fecha="2022-11-08 8:30",lugar="Punto verde ETSII, a la derecha de conserjería",aforo_max="200",premio="Unidad de ticket intercambiable por un panpizza gratis en ÑamÑam", coste="0.0")
         Evento.objects.create(titulo="Gymkhana",descripcion="Gymkhana con 9 distintos retos a realizar en el mínimo tiempo posible",fecha="2022-11-10 15:00",lugar="Aula A3.10 ETSII",premio="Caja de 5KG de La Estepeña",n_asistentes = "63",coste="0.0")
         
+        User.objects.create_superuser('admin', 'admin@example.com', 'admin')
+        
         options = webdriver.ChromeOptions()
         options.headless = True
         self.driver = webdriver.Chrome(options=options)
 
         super(EventosViewsTests, self).setUp()           
             
-    def tearDown(self):           
+    def tearDown(self):       
         self.driver.quit()
         super(EventosViewsTests, self).tearDown()
   
@@ -106,3 +109,26 @@ class EventosViewsTests(StaticLiveServerTestCase):
         
         coste = atributos[7].find_element(By.TAG_NAME, "td")
         self.assert_(coste.text=="0.0 €")
+
+    def test_view_delete_event_2(self):
+        
+        driver = self.driver
+        driver.get(f'{self.live_server_url}')
+        driver.set_window_size(1152, 824)
+        
+        #Entramos como admin
+        self.driver.find_element(By.LINK_TEXT, "Acceso Administrador").click()
+        self.driver.find_element(By.ID, "id_username").send_keys("admin")
+        self.driver.find_element(By.ID, "id_password").send_keys("admin",Keys.ENTER)
+        
+        self.driver.find_element(By.LINK_TEXT, "Eventos").click()
+        self.driver.find_element(By.XPATH, "//table/tbody/tr[2]").click()
+        self.driver.find_element(By.XPATH, '//button[text()="Eliminar"]').click()
+        self.driver.find_element(By.XPATH, '//button[text()="Confirmar"]').click() #Confirmamos la eliminacion
+        
+        #Comprobamos que se haya eliminado
+        eventos = self.driver.find_elements(By.TAG_NAME, "tr")
+        self.assert_(len(eventos)==2) #Sería 1 evento (el otro es la cabecera de la tabla)
+        
+        self.driver.find_element(By.LINK_TEXT, "Cerrar Sesión").click()    
+        
