@@ -123,6 +123,7 @@ class EventosViewsTests(StaticLiveServerTestCase):
         evento = Evento.objects.get(titulo="Panpizzas gratis")
         aforo_max_antiguo=evento.aforo_max
         self.driver.get(f'{self.live_server_url}')
+        self.driver.set_window_size(1920, 1080)
         self.driver.find_element(By.LINK_TEXT, "Acceso Administrador").click()
         self.driver.find_element(By.ID, "id_username").send_keys("admin")
         self.driver.find_element(By.ID, "id_password").send_keys("admin",Keys.ENTER)
