@@ -17,6 +17,9 @@ class Evento(models.Model):
         url = reverse('detalles_evento', args=[self.id])
         return u'<a href="%s">%s</a>' % (url, str(self.titulo)+ " - " + str(self.fecha.time()))
     
+    class Meta:
+        ordering = ('pk', )
+    
 class Ponente(models.Model):
     nombre = models.CharField(max_length=255, default=None)
     apellidos = models.CharField(max_length=255, default=None)
@@ -29,6 +32,9 @@ class Ponente(models.Model):
 
     def __str__(self):
         return self.nombre + " " + self.apellidos
+    
+    class Meta:
+        ordering = ('pk', )
 
 class Conferencia(models.Model):
     tema = models.CharField(max_length=255)
@@ -43,6 +49,9 @@ class Conferencia(models.Model):
     def get_absolute_url(self):
         url = reverse('detalles_ponencia', args=[self.id])
         return u'<a href="%s">%s</a>' % (url, str(self.tema)+ " - " + str(self.fecha.time()))
+    
+    class Meta:
+        ordering = ('pk', )
 
 
 class Ponente_Conferencia(models.Model):
@@ -50,6 +59,7 @@ class Ponente_Conferencia(models.Model):
     conferencia = models.ForeignKey(Conferencia, on_delete=models.CASCADE)
     class Meta:
         unique_together = ('ponente', 'conferencia',)
+        ordering = ('pk', )
 
     def __str__(self):
         return self.ponente.nombre + " " + self.ponente.apellidos

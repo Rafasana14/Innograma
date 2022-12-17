@@ -21,20 +21,20 @@ from django.contrib.auth import logout
 class ConferenciasView(ListView):
     template_name = 'ponencias.html'
     model = Conferencia
-    paginate_by = 3
+    paginate_by = 7
     
     context_object_name = 'conferencias'
     
 class EventosView(ListView):
     template_name = 'eventos.html'
     model = Evento
-    paginate_by = 3
+    paginate_by = 7
     context_object_name = 'eventos'
 
 class PonentesView(ListView):
     template_name = 'ponentes.html'
     model = Ponente
-    paginate_by = 3
+    paginate_by = 7
     context_object_name = 'ponentes'
 
 def get_conferencia(request, conferencia_id):
