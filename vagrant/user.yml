@@ -1,0 +1,7 @@
+---
+- name: Create innograma user
+  become: true
+  user:
+    name: innograma
+    comment: Innograma app user
+    state: present

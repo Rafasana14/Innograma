@@ -1,0 +1,14 @@
+---
+- name: innograma sysmtemd service
+  become: yes
+  become_user: root
+  copy:
+    src: files/innograma.service
+    dest: /etc/systemd/system/innograma.service
+
+- name: nginx.conf file
+  become: yes
+  become_user: root
+  copy:
+    src: files/nginx.conf
+    dest: /etc/nginx/conf.d/default.conf
