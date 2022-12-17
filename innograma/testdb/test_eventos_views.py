@@ -30,7 +30,7 @@ class EventosViewsTests(StaticLiveServerTestCase):
                               coste="0.0")
         User.objects.create_superuser('admin', 'admin@example.com', 'admin')
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
         super(EventosViewsTests, self).setUp()           
             
