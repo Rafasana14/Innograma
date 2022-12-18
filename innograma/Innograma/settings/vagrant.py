@@ -7,9 +7,9 @@ ADMINS = [
 ]
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = '/app/static/'
-MEDIA_ROOT = '/app/static/media/'
-CSRF_TRUSTED_ORIGINS = ["https://localhost:5000","http://localhost:5000"]
+STATIC_ROOT = BASE_DIR / 'static'
+MEDIA_ROOT = BASE_DIR / 'static/media'
+CSRF_TRUSTED_ORIGINS = ["https://localhost:8000","http://localhost:8000"]
 
 DATABASES = {
     'default': {
