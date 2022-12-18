@@ -37,10 +37,26 @@
                 <td>{{ evento.titulo   }}</td>
                 <td>{{ evento.fecha   }}</td>
                 <td>{{ evento.lugar   }}</td>
-                <td>{{ evento.aforo_max   }}</td>
-                <td>{{ evento.n_asistentes   }}</td>
-                <td>{{ evento.premio   }}</td>
-                <td>{{ evento.coste   }}</td>
+                <td>{% if evento.aforo_max == None %}
+                    No especificado
+                    {% else %}
+                    {{evento.aforo_max}}
+                    {% endif %}</td>
+                <td>{% if evento.n_asistentes == None %}
+                    No especificado
+                    {% else %}
+                    {{evento.n_asistentes}}
+                    {% endif %}</td>
+                <td>{% if evento.premio == None %}
+                    No especificado
+                    {% else %}
+                    {{evento.premio}}
+                    {% endif %}</td>
+                <td>{% if evento.coste == None %}
+                    No especificado
+                    {% else %}
+                    {{evento.coste}} €
+                    {% endif %}</td>
             </tr>
             {% endfor %}
         </table>

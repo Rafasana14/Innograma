@@ -39,8 +39,16 @@
                 <td>{{ conferencia.tema }}</td>
                 <td>{{ conferencia.fecha   }}</td>
                 <td>{{ conferencia.espacio   }}</td>
-                <td>{{ conferencia.aforo_max   }}</td>
-                <td>{{ conferencia.n_asistentes   }}</td>
+                <td>{% if conferencia.aforo_max == None %}
+                    No especificado
+                    {% else %}
+                    {{ conferencia.aforo_max}}
+                    {% endif %}</td>
+                <td>{% if conferencia.n_asistentes == None %}
+                    No especificado
+                    {% else %}
+                    {{conferencia.n_asistentes}}
+                    {% endif %}</td>
             </tr>
             {% endfor %}
         </table>

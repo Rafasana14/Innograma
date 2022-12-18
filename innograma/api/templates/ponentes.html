@@ -39,10 +39,26 @@
                 <td>{{ ponente.nombre   }}</td>
                 <td id="ponente">{{ ponente.apellidos   }}</td>
                 <td id="ponente">{{ ponente.especialidades   }}</td>
-                <td id="ponente">{{ ponente.empresa   }}</td>
-                <td id="ponente">{{ ponente.correo   }}</td>
-                <td id="ponente">{{ ponente.telefono   }}</td>
-                <td id="ponente">{{ ponente.otras_formas_de_contacto   }}</td>
+                <td id="ponente">{% if ponente.empresa == None %}
+                    No especificado
+                    {% else %}
+                    {{ponente.empresa}}
+                    {% endif %}</td>
+                <td id="ponente">{% if ponente.correo == None %}
+                    No especificado
+                    {% else %}
+                    {{ponente.correo}}
+                    {% endif %}</td>
+                <td id="ponente">{% if ponente.telefono == None or ponente.telefono == ""%}
+                    No especificado
+                    {% else %}
+                    {{ponente.telefono}}
+                    {% endif %}</td>
+                <td id="ponente">{% if ponente.otras_formas_de_contacto == None or ponente.otras_formas_de_contacto == "" %}
+                    No especificado
+                    {% else %}
+                    {{ponente.otras_formas_de_contacto}}
+                    {% endif %}</td>
             </tr>
             {% endfor %}
         </table>

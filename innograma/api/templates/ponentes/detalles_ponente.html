@@ -15,6 +15,7 @@
     <link type="text/css" href='{% static "css/confirmacion.css" %}' rel="stylesheet"/>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 </head>
 <body>
     {% include 'plantillaBarraNavegacion.html' %}
@@ -65,57 +66,78 @@
                     </tr>
                     <tr>
                         <th scope="row">Empresa</th>
-                        <td id="ponente">{{ ponente.empresa }}</td>
+                        <td id="ponente">{% if ponente.empresa == None %}
+                            No especificado
+                            {% else %}
+                            {{ponente.empresa}}
+                            {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">Correo</th>
-                        <td id="ponente">{{ ponente.correo }}</td>
+                        <td id="ponente">{% if ponente.correo == None %}
+                            No especificado
+                            {% else %}
+                            {{ponente.correo}}
+                            {% endif %}</td>
                     </tr>     
                     <tr>
                         <th scope="row">Teléfono</th>
-                        <td id="ponente">{{ ponente.telefono }}</td>
+                        <td id="ponente">{% if ponente.telefono == None or ponente.telefono == ""%}
+                            No especificado
+                            {% else %}
+                            {{ponente.telefono}}
+                            {% endif %}</td>
                     </tr>       
                     <tr>
                         <th scope="row">Otras formas de Contacto</th>
-                        <td id="ponente">{{ ponente.otras_formas_de_contacto }}</td>
+                        <td id="ponente">{% if ponente.otras_formas_de_contacto == None or ponente.otras_formas_de_contacto == "" %}
+                            No especificado
+                            {% else %}
+                            {{ponente.otras_formas_de_contacto}}
+                            {% endif %}</td>
                     </tr>    
-                </table>   
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-dark" onclick="location.href='{% url 'editar_ponente' ponente.id %}'">Editar</button>
-                    <button class="btn btn-danger delete-button" id="open-popup-1">Eliminar</button>
-                </div>
+                </table>
+                {% if user.is_superuser %}   
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-dark" onclick="location.href='{% url 'editar_ponente' ponente.id %}'">Editar</button>
+                        <button class="btn btn-danger delete-button" id="open-popup-1">Eliminar</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
     <br>
-    <div class="container-fluid">
-        <div class="row">
-                <h1 class="title" id="title-entidad"> CONFERENCIAS IMPARTIDAS </h1>
-        </div>
-    
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <table description="Tabla de listado de ponencias jornada innosoft" id="ponencias_table" class="table table-striped-success">
-                    <thead>
-                    <th> Tema </th> 
-                    <th> Fecha</th> 
-                    <th> Espacio </th> 
-                    </thead>
-                
-                    {% for conferencia in conferencias %}
-                        <tr data-href="{% url 'detalles_ponencia' conferencia.id %}">
-                            <td>{{ conferencia.tema }}</td>
-                            <td>{{ conferencia.fecha   }}</td>
-                            <td>{{ conferencia.espacio   }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>  
+    {% if conferencias|length != 0 %}
+        <div class="container-fluid">
+            <div class="row">
+                    <h1 class="title" id="title-entidad"> CONFERENCIAS IMPARTIDAS </h1>
+            </div>
+        
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <table description="Tabla de listado de ponencias jornada innosoft" id="ponencias_table" class="table table-striped-success">
+                        <thead>
+                        <th> Tema </th> 
+                        <th> Fecha</th> 
+                        <th> Espacio </th> 
+                        </thead>
+                    
+                        {% for conferencia in conferencias %}
+                            <tr data-href="{% url 'detalles_ponencia' conferencia.id %}">
+                                <td>{{ conferencia.tema }}</td>
+                                <td>{{ conferencia.fecha   }}</td>
+                                <td>{{ conferencia.espacio   }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>  
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     <script type="text/javascript" src="/static/js/popup.js"></script>
+    <script type="text/javascript" src="/static/js/tableRowLink.js">></script>
 
 </body>
 </html>

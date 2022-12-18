@@ -100,11 +100,12 @@
                             {% endif %}</td>
                     </tr>    
                 </table>   
-            
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-dark" onclick="location.href='{% url 'editar_evento' evento.id %}'">Editar</button>
-                    <button class="btn btn-danger delete-button" id="open-popup-1">Eliminar</button>
-                </div>
+                {% if user.is_superuser %}
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-dark" onclick="location.href='{% url 'editar_evento' evento.id %}'">Editar</button>
+                        <button class="btn btn-danger delete-button" id="open-popup-1">Eliminar</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
