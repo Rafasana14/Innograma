@@ -2,6 +2,8 @@ from .base import *
 
 DEBUG = True
 
+ALLOWED_HOSTS = ['*','ivamorgra.pythonanywhere.com']
+
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.sqlite3',
