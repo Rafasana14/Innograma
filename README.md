@@ -41,8 +41,7 @@ pip install virtualenvwrapper-win 
 Tras ello, se descargará el instalador de PostgreSQL desde su página y lo instalará, A continuación creará el entorno virtual con el siguiente comando: 
 '''
 	virtualenv Innograma 
-'''
-Y lo activará con 
+''' Y lo activará con 
 '''
 .Innograma\Scripts\activate 
 '''
