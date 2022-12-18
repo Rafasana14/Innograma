@@ -18,7 +18,7 @@ services:
       dockerfile: ./docker-compose/Dockerfile
     container_name: innograma_web
     image: innograma_web:latest
-    command: bash -c "python manage.py migrate && gunicorn -w 5 Innograma.wsgi --timeout=500 -b 0.0.0.0:5000"
+    command: bash -c "python manage.py migrate && gunicorn -w 5 Innograma.docker-compose-wsgi --timeout=500 -b 0.0.0.0:5000"
     #command: ls
     restart: always
     expose:
@@ -45,7 +45,7 @@ services:
     volumes:
       - static:/app/static
     ports:
-      - "5000:80"
+      - "8000:80"
     depends_on:
       - web
     networks:
