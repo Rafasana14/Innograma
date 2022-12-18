@@ -6,7 +6,7 @@ User=innograma
 Type=simple
 PIDFile=/var/run/innograma.pid
 WorkingDirectory=/home/innograma/innograma/innograma
-ExecStart=/home/innograma/venv/bin/gunicorn -w 5 innograma.wsgi --timeout=500 -b 0.0.0.0:8000
+ExecStart=/home/innograma/venv/bin/gunicorn -w 5 Innograma.vagrant-wsgi --timeout=500 -b 0.0.0.0:8000
 Restart=always
 
 [Install]
