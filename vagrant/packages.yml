@@ -1,16 +1,22 @@
 ---
-- name: One way to avoid apt_key once it is removed from your distro
-  block:
-    - name: Postgresql |no apt key
-      ansible.builtin.get_url:
-        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-        dest: /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg
-
-    - name: Postgresql | apt source
-      ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/apt.postgresql.org.gpg] http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main"
-        state: present
-
+- name: Install packages needed for postgresql14 installation
+  become: true
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - curl
+    - ca-certificates
+    - gnupg
+      
+- name: Run command to setup postgresql14 key
+  ansible.builtin.shell: curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
+  
+- name: Run command to setup repository
+  become: true
+  ansible.builtin.shell: sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'  
+  
 - name: Install packages
   become: true
   apt:
