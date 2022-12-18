@@ -27,37 +27,37 @@ Por otro lado, si el usuario prefiere tener el sistema instalado en consola, deb
 A continuación, ejemplificaremos el caso de propuesta de cambio siguiente: “Queremos añadir una imagen a cada ponencia y evento, para que estas aparezcan en una página nueva que sirva de galería de jornadas de otros años en caso de que se marcaran como destacadas”. 
 
 Asumiremos que el miembro encargado de la tarea no tiene descargado el repositorio todavía. Para inicializarlo, entrará en la carpeta donde quiera clonar el repositorio y accederá a la consola de comandos escribiendo “cmd” en la barra de búsqueda y pulsando Enter. Una vez en la consola, escribirá el siguiente comando: 
-
+'''
 git clone https://github.com/Rafasana14/Innograma.git 
-
+'''
 Esto le creará una carpeta asociada al repositorio de GitHub. A continuación, entrará a dicha carpeta y abrirá la consola de comandos de nuevo. Aquí escribirá el comando 
-
+'''
 	git checkout task-037 
-
+'''
 De esta forma, cambiará a la rama de la tarea 37 que se le ha asignado. A continuación, abrirá su entorno de desarrollo (nosotros hemos usado Visual Studio Code) y abrirá la carpeta del repositorio en él. Tras ello, deberá crear un entorno virtual. Primero deberá instalar virtualenv y virtualenwrapper: 
-
+'''
 pip install virtualenvwrapper-win 
-
+'''
 Tras ello, se descargará el instalador de PostgreSQL desde su página y lo instalará, A continuación creará el entorno virtual con el siguiente comando: 
-
+'''
 	virtualenv Innograma 
-
+'''
 Y lo activará con 
-
+'''
 .Innograma\Scripts\activate 
-
+'''
 Entonces, instalará Django y Psycog2: 
-
+'''
 	pip install Django 
 
 	pip install psycopg2 
-
+'''
 Entonces comenzará el proyecto mediante: 
-
+'''
 	Django-admin startproject innograma. 
-
+'''
 Tras ello, accederá al al archivo settings.py y lo modificará para que quede asi: 
-
+'''
 DATABASES = {‘default’:  
 
 {‘ENGINE’: ‘django.db.backends.postgresql_psycopg2’, 
@@ -71,15 +71,15 @@ PASSWORD’: ‘password’, 
 ‘HOST’: ‘localhost’, 
 
 ‘PORT’: ‘’,}} 
-
+'''
 Tras ello creará un superuser mediante el comando 
-
+'''
 	python manage.py createsuperuser 
-
+'''
 Y finalmente, correrá el sevidor con 
-
+'''
 	python manage.py runserver 
-
+'''
 Una vez comprobado que todo ha funcionado correctamente, el entorno vitual estará creado. 
 
  
@@ -87,7 +87,7 @@ Una vez comprobado que todo ha funcionado correctamente, el entorno vitual estar
 Antes de comenzar a programar, el miembro del equipo creará una issue del tipo de nueva funcionalidad (Etiqueta FEAT). En ella se incluirá la siguiente información: 
 
  
-
+'''
 Título: [FEAT] Task-037: Imágenes destacadas de eventos y ponencias 
 
 Descripción:  
@@ -108,7 +108,7 @@ Contenido adicional 
 
 No aplica. 
 
- 
+ '''
 
 Una vez redactado su contenido, se le asignarán uno o varios responsables, y una etiqueta de prioridad “medium priority” y una de “new”, y se colocará la issue en el tablero del proyecto en la columna “To Do”. Tras esto, el miembro del equipo que haya creado la issue creará una rama de nombre “task-037” para dicha tarea. 
 
@@ -117,41 +117,41 @@ Cuando uno de los responsables decida encargarse de la tarea, cambiará el tag 
  
 
 Una vez creado el entorno virtual, se accederá a él mediante los siguientes comandos: 
-
+'''
 	.Innograma\Scripts\activate 
-
+'''
 Y se arrancará el servidor mediante los comandos: 
-
+'''
 	cd innograma 
 
 	python manage.py runserver --settings=Innograma.settings.local    
-
+'''
 A continuación, se accederá a la aplicación mediante el enlace 
-
+'''
 	http://127.0.0.1:8000/ 
-
+'''
 Una vez todo esto haya funcionado correctamente, se comenzará a implementar el cambio en local. 
 
 Tras haber realizado todo el código necesario, el encargado de la tarea subirá los cambios a la rama de la tarea de la siguiente forma: 
 
 Primero verificará que los cambios que va a subir son los correctos con 
-
+'''
 	git status 
-
+'''
 Después añadirá los cambios mediante el comando 
-
+'''
 	git add . 
-
+'''
 O con 
-
+'''
 	git add <archivo> 
-
+'''
 A continuación, podrá revisar de nuevo mediante git status que todo está en orden, y hará el siguiente commit: 
-
+'''
 	Git commit –m “Code(task-037): Imágenes destacadas de eventos y ponencias” -m “Añade al modelo de eventos y ponencias los atributos Destacado y url_imagen y crea una vista para ver las imágenes de los eventos y ponencias destacados.” 
-
+'''
 Tras este commit, se subirán los cambios mediante 
-
+'''
 	git push 
-
+'''
 A continuación, el encargado deberá entrar al repositorio en el navegador y crear una pull request a develop para su commit. Al crearla indicará que la pull request es a la rama develop, y asignará a uno o varios encagados para su revisión. Por último, cambiará la issue de la tarea a la columna del tablero llamada “In Review”. 
