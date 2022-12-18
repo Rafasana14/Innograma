@@ -1,11 +1,9 @@
-��#� �I�n�n�o�g�r�a�m�a�
-
 # Descripción del sistema: 
 
 Se ha desarrollado una aplicación web para las jornadas Innosoft Days del curso 23/24 y en adelante. El objetivo de esta aplicación es el de aportar a los miembros del comité de programa de Innosoft una plataforma cómoda y accesible con la que gestionar las ponencias, eventos, calendario semanal de las jornadas y ponentes que asistirán a las mismas. La aplicación presenta una página de bienvenida con fotos de jornadas pasadas y una descripción de la propia aplicación. En la parte superior contamos en todo momento con una barra de navegación que ofrece las opciones “Inicio”, “Ponencias”, “Ponentes”, “Eventos”, “Calendario” y “Acceso Administrador”. 
 
 
-# Cómo ejecutar la aplicación: 
+## Cómo ejecutar la aplicación: 
 
 Los usuarios pueden acceder a nuestro sistema siguiendo los siguientes pasos: 
 
@@ -22,7 +20,7 @@ Por otro lado, si el usuario prefiere tener el sistema instalado en consola, deb
     4. Acceder a cualquier navegador web e indicar la siguiente url en la barra de navegación: URL 
 
 
-#Cómo hacer cambios: 
+## Cómo hacer cambios: 
 
 A continuación, ejemplificaremos el caso de propuesta de cambio siguiente: Queremos añadir una imagen a cada ponencia y evento, para que estas aparezcan en una página nueva que sirva de galería de jornadas de otros años en caso de que se marcaran como destacadas. 
 
