@@ -63,7 +63,7 @@ git clone https://github.com/Rafasana14/Innograma.git 
 
 Esto le creará una carpeta asociada al repositorio de GitHub. A continuación, entrará a dicha carpeta y abrirá la consola de comandos de nuevo. Aquí escribirá el comando 
 ```
-	git checkout task-037 
+git checkout task-037 
 ```
 De esta forma, cambiará a la rama de la tarea 37 que se le ha asignado. A continuación, abrirá su entorno de desarrollo (nosotros hemos usado Visual Studio Code) y abrirá la carpeta del repositorio en él. Tras ello, deberá crear un entorno virtual. Primero deberá instalar virtualenv y virtualenwrapper: 
 ```
@@ -71,45 +71,29 @@ pip install virtualenvwrapper-win 
 ```
 Tras ello, se descargará el instalador de PostgreSQL desde su página y lo instalará, A continuación creará el entorno virtual con el siguiente comando: 
 ```
-	virtualenv Innograma 
+virtualenv .Innograma 
 ```
 Y lo activará con 
 ```
 .Innograma\Scripts\activate 
 ```
-Entonces, instalará Django y Psycog2: 
+Entonces, instalará las dependencias, estando en la carpeta base del proyecto: 
 ```
-	pip install Django 
+pip install -r requirements.txt 
 
-	pip install psycopg2 
 ```
-Entonces comenzará el proyecto mediante: 
+Ahora cambiará de carpeta con:
 ```
-	Django-admin startproject innograma. 
-```
-Tras ello, accederá al al archivo settings.py y lo modificará para que quede asi: 
-```
-DATABASES = {‘default’:  
-
-{‘ENGINE’: ‘django.db.backends.postgresql_psycopg2’, 
-
-‘NAME’: ‘innograma’, 
-
-‘USER’: ‘admin’,‘ 
-
-PASSWORD’: ‘password’, 
-
-‘HOST’: ‘localhost’, 
-
-‘PORT’: ‘’,}} 
+cd innograma
 ```
 Tras ello creará un superuser mediante el comando 
 ```
-	python manage.py createsuperuser 
+python manage.py createsuperuser --settings=Innograma.settings.local
 ```
+
 Y finalmente, correrá el sevidor con 
 ```
-	python manage.py runserver 
+python manage.py runserver --settings=Innograma.settings.local 
 ```
 Una vez comprobado que todo ha funcionado correctamente, el entorno vitual estará creado. 
 
@@ -149,17 +133,17 @@ Cuando uno de los responsables decida encargarse de la tarea, cambiará el tag 
 
 Una vez creado el entorno virtual, se accederá a él mediante los siguientes comandos: 
 ```
-	.Innograma\Scripts\activate 
+.Innograma\Scripts\activate 
 ```
 Y se arrancará el servidor mediante los comandos: 
 ```
-	cd innograma 
+cd innograma 
 
-	python manage.py runserver --settings=Innograma.settings.local    
+python manage.py runserver --settings=Innograma.settings.local    
 ```
 A continuación, se accederá a la aplicación mediante el enlace 
 ```
-	http://127.0.0.1:8000/ 
+http://localhost:8000/ 
 ```
 Una vez todo esto haya funcionado correctamente, se comenzará a implementar el cambio en local. 
 
@@ -167,23 +151,23 @@ Tras haber realizado todo el código necesario, el encargado de la tarea subirá
 
 Primero verificará que los cambios que va a subir son los correctos con 
 ```
-	git status 
+git status 
 ```
 Después añadirá los cambios mediante el comando 
 ```
-	git add . 
+git add . 
 ```
 O con 
 ```
-	git add <archivo> 
+git add <archivo> 
 ```
 A continuación, podrá revisar de nuevo mediante git status que todo está en orden, y hará el siguiente commit: 
 ```
-	Git commit –m “Code(task-037): Imágenes destacadas de eventos y ponencias” -m “Añade al modelo de eventos y ponencias los atributos Destacado y url_imagen y crea una vista para ver las imágenes de los eventos y ponencias destacados.” 
+git commit –m “Code(task-037): Imágenes destacadas de eventos y ponencias” -m “Añade al modelo de eventos y ponencias los atributos Destacado y url_imagen y crea una vista para ver las imágenes de los eventos y ponencias destacados.” 
 ```
 Tras este commit, se subirán los cambios mediante 
 ```
-	git push 
+git push 
 ```
 A continuación, el encargado deberá entrar al repositorio en el navegador y crear una pull request a develop para su commit. Al crearla indicará que la pull request es a la rama develop, y asignará a uno o varios encagados para su revisión. Por último, cambiará la issue de la tarea a la columna del tablero llamada “In Review”. 
 
