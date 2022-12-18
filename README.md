@@ -1,6 +1,6 @@
 # Descripción del sistema: 
 
-![Django CI](https://github.com/Rafasana14/Innograma/blob/main/.github/workflows/django.yml)
+![Django CI](https://github.com/Rafasana14/Innograma/actions/workflows/django.yml/badge.svg)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/314003e444754d15b93e67b8d714de9c)](https://www.codacy.com/gh/Rafasana14/Innograma/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Rafasana14/Innograma&utm_campaign=Badge_Coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/314003e444754d15b93e67b8d714de9c)](https://www.codacy.com/gh/Rafasana14/Innograma/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Rafasana14/Innograma&amp;utm_campaign=Badge_Grade)
 
