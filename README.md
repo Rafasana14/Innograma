@@ -30,6 +30,7 @@ Asumiremos que el miembro encargado de la tarea no tiene descargado el repositor
 '''
 git clone https://github.com/Rafasana14/Innograma.git 
 '''
+
 Esto le creará una carpeta asociada al repositorio de GitHub. A continuación, entrará a dicha carpeta y abrirá la consola de comandos de nuevo. Aquí escribirá el comando 
 '''
 	git checkout task-037 
