@@ -1,9 +1,7 @@
 import os
 from .base import *
 
-#Opciones para docker compose
-
-DEBUG = False
+DEBUG = True
 
 ADMINS = [
 ]
@@ -16,10 +14,10 @@ CSRF_TRUSTED_ORIGINS = ["https://localhost:5000","http://localhost:5000"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'innograma_db',
+        'NAME': 'innograma',
+        'USER': 'innograma',
+        'PASSWORD': 'innograma',
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 }

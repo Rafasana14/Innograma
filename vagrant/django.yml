@@ -3,13 +3,13 @@
 - name: Database migration
   become: yes
   become_user: innograma
-  shell: ~/venv/bin/python manage.py migrate --settings=Innograma.settings.prod --noinput
+  shell: ~/venv/bin/python manage.py migrate --settings=Innograma.settings.vagrant --noinput
   args:
     chdir: /home/innograma/innograma/innograma
 
 - name: Admin superuser
   become: yes
   become_user: innograma
-  shell: ~/venv/bin/python manage.py shell --settings=Innograma.settings.prod -c "from django.contrib.auth.models import User; User.objects.filter(username='admin') or User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+  shell: ~/venv/bin/python manage.py shell --settings=Innograma.settings.vagrant -c "from django.contrib.auth.models import User; User.objects.filter(username='admin') or User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
   args:
     chdir: /home/innograma/innograma/innograma
