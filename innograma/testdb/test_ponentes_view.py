@@ -44,8 +44,8 @@ class PonentesViews(StaticLiveServerTestCase):
 
         atributos = self.driver.find_elements(By.TAG_NAME, "tr")
         
-        # En nuestro caso hay 7 atributos pero dos tablas diferentes ( hay un tr más)
-        self.assert_(len(atributos)==8)
+        # En nuestro caso hay 7 atributos 
+        self.assert_(len(atributos)==7)
 
         nombre = atributos[1].find_element(By.ID, "ponente")
         self.assert_("ponente1" in nombre.text)
@@ -77,7 +77,7 @@ class PonentesViews(StaticLiveServerTestCase):
         driver.find_element(By.XPATH, "//table/tbody/tr[3]").click()
 
         atributos = self.driver.find_elements(By.TAG_NAME, "tr")
-        self.assert_(len(atributos)==8)
+        self.assert_(len(atributos)==7)
 
         nombre = atributos[1].find_element(By.TAG_NAME, "td")
         self.assert_("ponente3" in nombre.text)
