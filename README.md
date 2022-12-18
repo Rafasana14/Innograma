@@ -24,7 +24,7 @@ Por otro lado, si el usuario prefiere tener el sistema instalado en consola, deb
 
 #Cómo hacer cambios: 
 
-A continuación, ejemplificaremos el caso de propuesta de cambio siguiente: “Queremos añadir una imagen a cada ponencia y evento, para que estas aparezcan en una página nueva que sirva de galería de jornadas de otros años en caso de que se marcaran como destacadas”. 
+A continuación, ejemplificaremos el caso de propuesta de cambio siguiente: Queremos añadir una imagen a cada ponencia y evento, para que estas aparezcan en una página nueva que sirva de galería de jornadas de otros años en caso de que se marcaran como destacadas. 
 
 Asumiremos que el miembro encargado de la tarea no tiene descargado el repositorio todavía. Para inicializarlo, entrará en la carpeta donde quiera clonar el repositorio y accederá a la consola de comandos escribiendo “cmd” en la barra de búsqueda y pulsando Enter. Una vez en la consola, escribirá el siguiente comando: 
 '''
