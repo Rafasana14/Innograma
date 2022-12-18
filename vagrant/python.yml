@@ -19,6 +19,6 @@
   become: yes
   become_user: innograma
   pip:
-    requirements: /home/innograma/innograma/requirements.txt
+    requirements: /home/innograma/innograma/vagrant/requirements.txt
     virtualenv: /home/innograma/venv
     virtualenv_python: python3.8

@@ -1,0 +1,8 @@
+Django==4.1.2
+asgiref==3.5.2
+sqlparse==0.4.3
+selenium==4.6.0
+djangorestframework==3.14.0
+PySocks==1.7.1
+psycopg2-binary==2.9.5
+coverage==6.5.0
