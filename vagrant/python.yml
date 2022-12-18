@@ -5,7 +5,7 @@
   git:
     repo: 'https://github.com/Rafasana14/Innograma.git'
     dest: /home/innograma/innograma
-    version: master
+    version: main
 
 - name: Python virtualenv
   become: yes
@@ -13,7 +13,7 @@
   pip:
     name: "gunicorn"
     virtualenv: /home/innograma/venv
-    virtualenv_python: python3
+    virtualenv_python: python3.8
 
 - name: Requirements
   become: yes
@@ -21,4 +21,4 @@
   pip:
     requirements: /home/innograma/innograma/requirements.txt
     virtualenv: /home/innograma/venv
-    virtualenv_python: python3
+    virtualenv_python: python3.8
