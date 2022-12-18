@@ -1,5 +1,9 @@
 # Descripción del sistema: 
 
+![Django CI](https://github.com/Rafasana14/Innograma/blob/main/.github/workflows/django.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/314003e444754d15b93e67b8d714de9c)](https://www.codacy.com/gh/Rafasana14/Innograma/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Rafasana14/Innograma&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/314003e444754d15b93e67b8d714de9c)](https://www.codacy.com/gh/Rafasana14/Innograma/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Rafasana14/Innograma&amp;utm_campaign=Badge_Grade)
+
 Se ha desarrollado una aplicación web para las jornadas Innosoft Days del curso 23/24 y en adelante. El objetivo de esta aplicación es el de aportar a los miembros del comité de programa de Innosoft una plataforma cómoda y accesible con la que gestionar las ponencias, eventos, calendario semanal de las jornadas y ponentes que asistirán a las mismas. La aplicación presenta una página de bienvenida con fotos de jornadas pasadas y una descripción de la propia aplicación. En la parte superior contamos en todo momento con una barra de navegación que ofrece las opciones “Inicio”, “Ponencias”, “Ponentes”, “Eventos”, “Calendario” y “Acceso Administrador”. 
 
 
@@ -15,11 +19,39 @@ Por otro lado, si el usuario prefiere tener el sistema instalado en consola, deb
 
     2. Descargarse la imagen desde consola mediante el comando docker pull nombre_imagen 
 
-    3. Lanzar la imagen con el comando docker run nombre_imagen 
+    3. Lanzar la imagen con el comando docker run rafsanesp/innograma:[tag] (El tag por defecto de la última versión es latest)
 
-    4. Acceder a cualquier navegador web e indicar la siguiente url en la barra de navegación: URL 
+    4. Acceder a cualquier navegador web e indicar la siguiente url en la barra de navegación: localhost:8000 
 
+Si se quiere hacer build de la imagen del proyecto con Docker Compose
 
+    1. Entrar en la carpeta base del proyecto si se quiere hacer un build del proyecto
+    
+    2. Ejecutar el siguiente comando:
+    
+```
+docker build -t innograma:prueba . -f .\docker\Dockerfile
+    
+```
+Si se quiere ejecutar el proyecto con Docker Compose:
+
+Entrar en la carpeta docker-compose del proyecto y ejecutar el siguiente comando :
+    
+```
+docker compose up
+```
+    
+o si está situado fuera de la carpeta ejecutar el siguiente comando:
+    
+```
+docker compose -f .\docker-compose\docker-compose.yml up
+```
+
+Para ejecutar el proyecto con Vagrant debe situarse dentro de la carpeta vagrant y ejecutar el comando:
+```
+vagrant up
+```
+   
 ## Cómo hacer cambios: 
 
 A continuación, ejemplificaremos el caso de propuesta de cambio siguiente: Queremos añadir una imagen a cada ponencia y evento, para que estas aparezcan en una página nueva que sirva de galería de jornadas de otros años en caso de que se marcaran como destacadas. 
@@ -154,3 +186,5 @@ Tras este commit, se subirán los cambios mediante 
 	git push 
 ```
 A continuación, el encargado deberá entrar al repositorio en el navegador y crear una pull request a develop para su commit. Al crearla indicará que la pull request es a la rama develop, y asignará a uno o varios encagados para su revisión. Por último, cambiará la issue de la tarea a la columna del tablero llamada “In Review”. 
+
+
